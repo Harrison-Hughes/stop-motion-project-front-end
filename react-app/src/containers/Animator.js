@@ -1,16 +1,31 @@
-import React, {setState} from 'react';
-import Canvas from '../components/Canvas';
-import '../css/Animator.css'
+import React, {useState} from 'react';
+import '../css/Animator.css';
+import demoFilm from '../components/BaseFrames.js'
+import FrameEditor from './FrameEditor';
+import FrameSelector from './FrameSelector';
 
-const Animator = props => {
-  // const [frames, setFrames] = setState([]);
+const Animator = () => {
+  const[frames, setFrames] = useState(demoFilm);
+  const[frameNum, setframeNum] = useState(0);
 
-  const blankArrayGenerator = (xdim, ydim, color) => [...Array(ydim)].map(e => Array(xdim).fill(color));
-  let baseFrame = blankArrayGenerator(80, 50, '#FFF')
+  const changeFrame = i => {
+    if (i === 'next') setframeNum(frameNum + 1)
+    else if (i === 'prev') setframeNum(frameNum - 1);
+  }
 
   return(
     <div className='AnimatorDiv'>
-       <Canvas baseFrame={baseFrame}/>
+       <FrameEditor 
+          selectedFrame={frames[frameNum]}
+          updateFrame={setFrames()}
+        />
+       <h3>Frame {frameNum + 1}/{frames.length}</h3>
+       <FrameSelector 
+          frames={frames} 
+          frameNum={frameNum} 
+          changeFrame={i => changeFrame(i)}
+          isFirstFrame={frameNum === 0 ? true : false} isLastFrame={frameNum === frames.length -1 ? true : false}
+        />
     </div>
   )
 }
