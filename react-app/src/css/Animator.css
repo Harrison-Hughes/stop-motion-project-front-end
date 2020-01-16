@@ -6,30 +6,6 @@ body, html, #root, #app {
   height: 100%;
 }
 
-#matrix {
-  margin: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  height: 500px;
-  width: 800px;
-  background-color: #bbb;
-}
-
-.row {
-  width: 800px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-}
-
-.cell {
-  width: 12px;
-  height: 12px;
-}
-
 #colorSelector {
   top: 0;
   margin: 0 0 15px 0;
@@ -48,3 +24,9 @@ body, html, #root, #app {
   height: 50px;
   margin: 0 2%;
 }
+/* 
+canvas {
+  border: 2px solid rgb(0, 0, 0);
+  overflow: visible
+  box-shadow: 2px 2px 5px black;
+} */
