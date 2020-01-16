@@ -17,7 +17,7 @@ const Animator = () => {
     <div className='AnimatorDiv'>
        <FrameEditor 
           selectedFrame={frames[frameNum]}
-          updateFrame={setFrames()}
+          updateFrame={edit => setFrames(frames.map((val, index) => index === frameNum ? edit : val ))}
         />
        <h3>Frame {frameNum + 1}/{frames.length}</h3>
        <FrameSelector 
