@@ -1,12 +1,9 @@
 import React, { useState } from 'react'
-import learnSymbol from './BaseFrame'
 import CanvasCell from './CanvasCell'
 import Palette from '../containers/Palette'
 
-const Canvas = () => {
-  const demoFrame = learnSymbol;
-
-  const[frame] = useState(demoFrame)
+const Canvas = props => {
+  const[frame] = useState(props.baseFrame)
   const[selectedColor, setSelectedColor] = useState("FFF")
 
   const genMatrix = () => (

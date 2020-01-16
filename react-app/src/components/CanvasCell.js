@@ -7,11 +7,7 @@ const CanvasCell = props => {
   const handleClick = () => {setColor(props.selectedColor)}
   
   return(
-    <div className="cell"
-         style={{backgroundColor: color}}
-         onClick={handleClick}
-         >
-    </div>
+    <div className="cell" style={{backgroundColor: color}} onClick={handleClick}></div>
   )
 
 }
