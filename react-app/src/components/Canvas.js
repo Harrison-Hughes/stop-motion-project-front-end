@@ -11,7 +11,7 @@ class Canvas extends React.Component {
   }
 
   renderFrame = () => {
-    const {frame, selectedColor} = this.props;
+    const {frame} = this.props;
     const pixelsTall = frame.length; const pixelsAcross = frame[0].length
     const canvas = this.refs.canvas; 
     const ctx = canvas.getContext("2d"); 
@@ -31,9 +31,19 @@ class Canvas extends React.Component {
     const rect = e.target.getBoundingClientRect();
     let x = e.clientX - rect.left; let y = e.clientY - rect.top;
     let [xcrd, ycrd] = this.convertLocationToCoords(x, y);
-    console.log([xcrd, ycrd])
-    this.props.editPixel(xcrd, ycrd)
+    this.selectPixels(xcrd, ycrd)
   }
+
+  selectPixels = (xcrd, ycrd) => {
+    if (this.props.brushType === '1square') this.props.editPixel(xcrd, ycrd)
+    // else if (this.props.brushType === '2square') this.squareBrushPaint(xcrd, ycrd, 2)
+  }
+
+  // squareBrushPaint = (xcrd, ycrd, squares) => {
+  //   let xStart = xcrd - squares + 1, yStart = ycrd - squares + 1;
+  //   for (let x=xStart; x<xStart+squares;)
+
+  // }
 
   convertLocationToCoords = (xi, yi) => {
     const canvas = this.refs.canvas; const width = canvas.width; 
