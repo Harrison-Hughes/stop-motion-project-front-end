@@ -7,25 +7,38 @@ import Brush from '../components/Brush';
 const FrameEditor = props => {
   const[selectedColor, setSelectedColor] = useState("#FFF")
   const[frame, setFrame] = useState(props.selectedFrame)
-  const[brushType, setBrushType] = useState("1square")
+  const[brushType, setBrushType] = useState("1 square")
 
   useEffect(() => setFrame(props.selectedFrame),[props.selectedFrame])
 
-  const editPixels = arr => {
-    // arr.map(p => editPixel(p[0], p[1]))
+  const editSquarePixels = arr => {
+    let ycrds = arr.map(coord => coord[1]); let xcrds = arr.map(coord => coord[0]);
+    console.log(xcrds, ycrds)
     setFrame(frame.map((row, rowIndex) => {
-      if (rowIndex !== ycrd) return row
+      if (!ycrds.includes(rowIndex)) return row
       else {return row.map((col, colIndex) => {
-        if (colIndex !== xcrd) return col
+        if (!xcrds.includes(colIndex)) return col
         else return selectedColor
       })};
     }));
   }
 
+  // const editAnyPixels = arr => {
+  //   let ycrds = arr.map(coord => coord[1]); let xcrds = arr.map(coord => coord[0]);
+  //   console.log(xcrds, ycrds)
+
+  //   setFrame(frame.map((row, rowIndex) => {
+  //     if (rowIndex !== ycrd) return row
+  //     else {return row.map((col, colIndex) => {
+  //       if (colIndex !== xcrd) return col
+  //       else return selectedColor
+  //     })};
+  //   }));
+  // }
+
   const editPixel = (xcrd, ycrd) => {
     // console.log([xcrd, ycrd])
     setFrame(frame.map((row, rowIndex) => {
-      console.log(frame[0][0])
       if (rowIndex !== ycrd) return row
       else {return row.map((col, colIndex) => {
         if (colIndex !== xcrd) return col
@@ -41,7 +54,7 @@ const FrameEditor = props => {
         frame={frame} 
         selectedColor={selectedColor} 
         editPixel={(xcrd, ycd) => editPixel(xcrd, ycd)} 
-        editPixels={arr => editPixels(arr)} 
+        editSquarePixels={arr => editSquarePixels(arr)} 
         updateFrame={updatedFrame => setFrame(updatedFrame)}/>
 
        <Palette 

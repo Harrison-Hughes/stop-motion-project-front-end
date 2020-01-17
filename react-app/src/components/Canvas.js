@@ -35,8 +35,12 @@ class Canvas extends React.Component {
   }
 
   selectPixels = (xcrd, ycrd) => {
-    if (this.props.brushType === '1square') this.props.editPixel(xcrd, ycrd)
-    else if (this.props.brushType === '2square') this.squareBrushPaint(xcrd, ycrd, 2)
+    console.log(this.props.brushType.split(' ')[0])
+    if (this.props.brushType.split(' ')[1] === 'square'){
+      if (this.props.brushType === '1 square') this.props.editPixel(xcrd, ycrd)
+      else this.squareBrushPaint(xcrd, ycrd, 2*this.props.brushType.split(' ')[0] -1)
+    }
+    
   }
 
   squareBrushPaint = (xcrd, ycrd, squares) => {
@@ -48,7 +52,7 @@ class Canvas extends React.Component {
       }
     }
     console.log(pixels)
-    this.props.editPixels(pixels)
+    this.props.editSquarePixels(pixels)
     // console.log(pixels)
   }
 
