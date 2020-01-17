@@ -36,14 +36,21 @@ class Canvas extends React.Component {
 
   selectPixels = (xcrd, ycrd) => {
     if (this.props.brushType === '1square') this.props.editPixel(xcrd, ycrd)
-    // else if (this.props.brushType === '2square') this.squareBrushPaint(xcrd, ycrd, 2)
+    else if (this.props.brushType === '2square') this.squareBrushPaint(xcrd, ycrd, 2)
   }
 
-  // squareBrushPaint = (xcrd, ycrd, squares) => {
-  //   let xStart = xcrd - squares + 1, yStart = ycrd - squares + 1;
-  //   for (let x=xStart; x<xStart+squares;)
+  squareBrushPaint = (xcrd, ycrd, squares) => {
+    let xStart = xcrd - squares + 1, yStart = ycrd - squares + 1;
+    // console.log(xcrd,ycrd,squares)
+    for (let y=yStart; y<=yStart+squares; y++) {
+      for (let x=xStart; x<=xStart+squares; x++) {
+        // console.log([x,y]);
+        // if (!!this.props.frame[y][x]) console.log([x,y]);
+      }
+    }
+    
 
-  // }
+  }
 
   convertLocationToCoords = (xi, yi) => {
     const canvas = this.refs.canvas; const width = canvas.width; 
