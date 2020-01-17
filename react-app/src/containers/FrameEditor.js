@@ -11,7 +11,7 @@ const FrameEditor = props => {
 
   const editPixel = (xcrd, ycrd) => {
     setFrame(frame.map((row, rowIndex) => {
-      if (rowIndex !== ycrd) {console.log([rowIndex, ycrd]); return row}
+      if (rowIndex !== ycrd) return row
       else {return row.map((col, colIndex) => {
         if (colIndex !== xcrd) return col
         else return selectedColor
