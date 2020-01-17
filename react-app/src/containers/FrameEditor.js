@@ -11,21 +11,46 @@ const FrameEditor = props => {
 
   useEffect(() => setFrame(props.selectedFrame),[props.selectedFrame])
 
-  const editPixel = (xcrd, ycrd) => {
+  const editPixels = arr => {
+    // arr.map(p => editPixel(p[0], p[1]))
     setFrame(frame.map((row, rowIndex) => {
       if (rowIndex !== ycrd) return row
       else {return row.map((col, colIndex) => {
         if (colIndex !== xcrd) return col
         else return selectedColor
-      })}
+      })};
+    }));
+  }
+
+  const editPixel = (xcrd, ycrd) => {
+    // console.log([xcrd, ycrd])
+    setFrame(frame.map((row, rowIndex) => {
+      console.log(frame[0][0])
+      if (rowIndex !== ycrd) return row
+      else {return row.map((col, colIndex) => {
+        if (colIndex !== xcrd) return col
+        else return selectedColor
+      })};
     }));
   }
 
   return(
     <div className='FrameEditor'>
-       <Canvas brushType={brushType} frame={frame} selectedColor={selectedColor} editPixel={(xcrd, ycd) => editPixel(xcrd, ycd)} updateFrame={updatedFrame => setFrame(updatedFrame)}/>
-       <Palette changeSelectedColor={color => setSelectedColor(color)} selectedColor={selectedColor}/>
-       <Brush brushType={brushType} changeBrushType={type => setBrushType(type)}/>
+       <Canvas 
+        brushType={brushType} 
+        frame={frame} 
+        selectedColor={selectedColor} 
+        editPixel={(xcrd, ycd) => editPixel(xcrd, ycd)} 
+        editPixels={arr => editPixels(arr)} 
+        updateFrame={updatedFrame => setFrame(updatedFrame)}/>
+
+       <Palette 
+        changeSelectedColor={color => setSelectedColor(color)} 
+        selectedColor={selectedColor}/>
+
+       <Brush 
+        brushType={brushType} 
+        changeBrushType={type => setBrushType(type)}/>
        <button onClick={() => props.updateFrame(frame)}>save frame</button>
     </div>
   )
