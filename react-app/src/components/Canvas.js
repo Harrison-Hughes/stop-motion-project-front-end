@@ -55,8 +55,7 @@ class Canvas extends React.Component {
     for (let y=yStart; y<=yStart+(2*(squares-1)); y++) {
       for (let x=xStart; x<=xStart+(2*(squares-1)); x++) {
         if (x >= 0 && y >=0 && x < this.props.frame[0].length && y < this.props.frame.length ) pixels.push([x,y])
-      }
-    }
+    }}
     this.props.editSquarePixels(pixels)
   }
 
@@ -70,7 +69,7 @@ class Canvas extends React.Component {
   render() {
     return(
       <div>
-        <canvas onClick={e => this.handleClick(e)} ref="canvas" width={800} height={500} />
+        <canvas id='mainCanvas' onClick={e => this.handleClick(e)} ref="canvas" width={800} height={500} />
       </div>
     )
   }

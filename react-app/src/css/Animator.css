@@ -10,7 +10,7 @@ button {
   cursor: pointer;
 }
 
-canvas {
+#mainCanvas {
   cursor: crosshair;
 }
 
@@ -29,7 +29,7 @@ canvas {
 #brushSelector {
   top: 0;
   margin: 0 0 15px 0;
-  height: 80px;
+  height: 25px;
   background-color: #bbb;
   display: flex;
   align-items: center;
@@ -48,9 +48,24 @@ canvas {
 
 .brush-type {
   border: 1px solid #999;
-  width: 50px;
-  height: 50px;
+  width: 20px;
+  height: 20px;
   margin: 0 2%;
   cursor: pointer;
 }
 
+#miniFrames {
+  padding-top:20px; 
+  padding-left:15px; 
+  padding-right:15px; 
+  background-color: rgb(204, 136, 136);
+}
+
+#miniFrame {
+  display: inline-block;
+  padding: 20px;
+}
+
+#miniCanvas {
+  cursor: pointer;
+}

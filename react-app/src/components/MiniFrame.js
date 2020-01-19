@@ -27,13 +27,18 @@ class MiniFrame extends React.Component {
     }
   }
 
-  handleClick = e => {
-  }
+  handleClick = () => {this.props.changeFrame(this.props.frameNumber)}
 
   render() {
     return(
-      <div>
-        <canvas onClick={e => this.handleClick(e)} ref="canvas" width={800} height={500} />
+      <div id='miniFrame'>
+        <canvas 
+          style={this.props.frameNumber === this.props.selectedFrameNum ? {border: '2px solid white'} : null }
+          id='miniCanvas' 
+          onClick={() => this.handleClick()} 
+          ref="canvas" 
+          width={80} 
+          height={50} />
       </div>
     )
   }

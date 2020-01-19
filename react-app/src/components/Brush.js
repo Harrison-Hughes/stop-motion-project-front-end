@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 const Brush = props => {
-  const[selectedBrush, setSelectedBrush] = useState(props.brushType)
+  // const[selectedBrush, setSelectedBrush] = useState(props.brushType)
 
   const squareBrushGenerator = max => {
     let arr = [];

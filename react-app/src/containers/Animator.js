@@ -11,6 +11,12 @@ const Animator = () => {
   const changeFrame = i => {
     if (i === 'next') setframeNum(frameNum + 1)
     else if (i === 'prev') setframeNum(frameNum - 1);
+    else setframeNum(i)
+  }
+
+  const addBlankFrame = () => {
+    const blankArrayGenerator = (xdim, ydim, color) => [...Array(ydim)].map(() => Array(xdim).fill(color));
+    
   }
 
   return(
@@ -19,7 +25,7 @@ const Animator = () => {
           selectedFrame={frames[frameNum]}
           updateFrame={edit => setFrames(frames.map((val, index) => index === frameNum ? edit : val ))}
         />
-       <h3>Frame {frameNum + 1}/{frames.length}</h3>
+       {/* <h3>Frame {frameNum + 1}/{frames.length}</h3> */}
        <FrameSelector 
           frames={frames} 
           frameNum={frameNum} 

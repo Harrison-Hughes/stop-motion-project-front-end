@@ -69,7 +69,7 @@ const FrameEditor = props => {
        <Brush 
         brushType={brushType} 
         changeBrushType={type => setBrushType(type)}/>
-       <button onClick={() => props.updateFrame(frame)}>save frame</button>
+       {/* <button onClick={() => props.updateFrame(frame)}>save frame</button> */}
     </div>
   )
 }
