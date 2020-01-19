@@ -9,6 +9,7 @@ const FrameEditor = props => {
   const[frame, setFrame] = useState(props.selectedFrame)
   const[brushType, setBrushType] = useState("1 square")
   const[showGrid, setShowGrid] = useState(false)
+  const[overlayType, setOverlayType] = useState('next')
 
   useEffect(() => setFrame(props.selectedFrame),[props.selectedFrame])
   useEffect(() => props.updateFrame(frame),[frame])
@@ -52,7 +53,16 @@ const FrameEditor = props => {
 
   return(
     <div className='FrameEditor'>
-    <button onClick={() => toggleGrid()}> turn grid {showGrid ? 'off' : 'on'}</button>
+      <button onClick={() => toggleGrid()}> turn grid {showGrid ? 'off' : 'on'}</button>
+      <label>
+        <input type="radio" value="previous" checked={overlayType==='previous'} onChange={e => setOverlayType(e.target.value)}/>
+        Previous frame
+      </label>
+      <label>
+        <input type="radio" value="next" checked={overlayType==='next'} onChange={e => setOverlayType(e.target.value)}/>
+        Next frame
+      </label>
+
        <Canvas 
         brushType={brushType} 
         frame={frame} 
@@ -69,7 +79,6 @@ const FrameEditor = props => {
        <Brush 
         brushType={brushType} 
         changeBrushType={type => setBrushType(type)}/>
-       {/* <button onClick={() => props.updateFrame(frame)}>save frame</button> */}
     </div>
   )
 }
