@@ -18,7 +18,7 @@ class Canvas extends React.Component {
     const width = canvas.width; 
     const blockSize = width/frame[0].length;
     ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, width, width);
-    console.log(blockSize)
+    // console.log(blockSize)
 
     for(let y = 0; y < pixelsTall; y++){
       for(let x = 0; x < pixelsAcross; x++){
@@ -26,7 +26,6 @@ class Canvas extends React.Component {
         ctx.fillRect(x*blockSize, y*blockSize, blockSize, blockSize);
     }}
     if (this.props.showGrid) {
-      // this.drawGrid()
       for (let x=1; x<(canvas.width/blockSize); x++){ctx.moveTo(x*blockSize, 0); ctx.lineTo(x*blockSize, canvas.height)}
       for (let y=1; y<(canvas.height/blockSize); y++){ctx.moveTo(0, y*blockSize); ctx.lineTo(canvas.width, y*blockSize)}
 
@@ -49,7 +48,6 @@ class Canvas extends React.Component {
       if (this.props.brushType === '1 square') this.props.editPixel(xcrd, ycrd)
       else this.squareBrushPaint(xcrd, ycrd, 2*this.props.brushType.split(' ')[0] -1)
     }
-    
   }
 
   squareBrushPaint = (xcrd, ycrd, squares) => {
@@ -60,7 +58,6 @@ class Canvas extends React.Component {
       }
     }
     this.props.editSquarePixels(pixels)
-    // console.log(pixels)
   }
 
   convertLocationToCoords = (xi, yi) => {

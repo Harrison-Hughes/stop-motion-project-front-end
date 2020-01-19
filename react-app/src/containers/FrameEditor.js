@@ -11,10 +11,10 @@ const FrameEditor = props => {
   const[showGrid, setShowGrid] = useState(false)
 
   useEffect(() => setFrame(props.selectedFrame),[props.selectedFrame])
+  useEffect(() => props.updateFrame(frame),[frame])
 
   const editSquarePixels = arr => {
     let ycrds = arr.map(coord => coord[1]); let xcrds = arr.map(coord => coord[0]);
-    // console.log(xcrds, ycrds)
     setFrame(frame.map((row, rowIndex) => {
       if (!ycrds.includes(rowIndex)) return row
       else {return row.map((col, colIndex) => {
@@ -47,12 +47,6 @@ const FrameEditor = props => {
       })};
     }));
   }
-
-  // const handleKeyPress = e => {
-  //   console.log(e.key)
-  //   console.log(e.charCode)
-  //   if(e.key === 'g'){toggleGrid()}
-  // }
 
   const toggleGrid = () => {setShowGrid(showGrid ? false : true)}
 
