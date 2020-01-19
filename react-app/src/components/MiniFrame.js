@@ -11,7 +11,7 @@ class MiniFrame extends React.Component {
   }
 
   renderMiniFrame = () => {
-    const {frame, selectedColor} = this.props;
+    const {frame} = this.props;
     const pixelsTall = frame.length; const pixelsAcross = frame[0].length
     const canvas = this.refs.canvas; 
     const ctx = canvas.getContext("2d"); 
@@ -33,12 +33,12 @@ class MiniFrame extends React.Component {
     return(
       <div id='miniFrame'>
         <canvas 
-          style={this.props.frameNumber === this.props.selectedFrameNum ? {border: '2px solid white'} : null }
+          style={this.props.frameNumber === this.props.selectedFrameNum ? {border: '2px solid white', boxShadow: `6px 6px 5px grey`} : null }
           id='miniCanvas' 
           onClick={() => this.handleClick()} 
           ref="canvas" 
-          width={80} 
-          height={50} />
+          width={160} 
+          height={100} />
       </div>
     )
   }

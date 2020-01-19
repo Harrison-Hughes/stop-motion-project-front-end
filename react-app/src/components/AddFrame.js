@@ -11,12 +11,9 @@ class AddFrame extends React.Component {
   }
 
   renderAddFrame = () => {
-    const {frame} = this.props;
-    const pixelsTall = frame.length; const pixelsAcross = frame[0].length
     const canvas = this.refs.canvas; 
     const ctx = canvas.getContext("2d"); 
     const width = canvas.width; 
-    const blockSize = width/frame[0].length;
     ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, width, width);
 
     ctx.fillStyle = "white"; ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -25,12 +22,10 @@ class AddFrame extends React.Component {
     ctx.closePath(); ctx.stroke();
   }
 
-  handleClick = e => {}
-
   render() {
     return(
       <div id='miniFrame'>
-        <canvas id='miniCanvas' onClick={e => this.handleClick(e)} ref="canvas" width={80} height={50} />
+        <canvas id='miniCanvas' onClick={() => this.props.addBlankFrame()} ref="canvas" width={160} height={100} />
       </div>
     )
   }

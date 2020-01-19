@@ -16,21 +16,21 @@ const Animator = () => {
 
   const addBlankFrame = () => {
     const blankArrayGenerator = (xdim, ydim, color) => [...Array(ydim)].map(() => Array(xdim).fill(color));
-    
+    setFrames([...frames, blankArrayGenerator(80, 50, '#FFF')])
   }
 
   return(
     <div className='AnimatorDiv'>
        <FrameEditor 
-          selectedFrame={frames[frameNum]}
-          updateFrame={edit => setFrames(frames.map((val, index) => index === frameNum ? edit : val ))}
+        selectedFrame={frames[frameNum]}
+        updateFrame={edit => setFrames(frames.map((val, index) => index === frameNum ? edit : val ))}
         />
-       {/* <h3>Frame {frameNum + 1}/{frames.length}</h3> */}
        <FrameSelector 
-          frames={frames} 
-          frameNum={frameNum} 
-          changeFrame={i => changeFrame(i)}
-          isFirstFrame={frameNum === 0 ? true : false} isLastFrame={frameNum === frames.length -1 ? true : false}
+        addBlankFrame={() => addBlankFrame()}
+        frames={frames} 
+        frameNum={frameNum} 
+        changeFrame={i => changeFrame(i)}
+        isFirstFrame={frameNum === 0 ? true : false} isLastFrame={frameNum === frames.length -1 ? true : false}
         />
     </div>
   )

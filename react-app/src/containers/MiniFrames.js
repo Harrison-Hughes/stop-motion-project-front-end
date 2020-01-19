@@ -18,7 +18,7 @@ const MiniFrames = props => {
   return(
     <div id='miniFrames'>
       {renderMiniFrames()}
-      <AddFrame key={`add frame`} frame={props.frames[0]}/>
+      <AddFrame addBlankFrame={() => props.addBlankFrame()} key={`add frame`} frame={props.frames[0]}/>
     </div>
   )
 }
