@@ -1,5 +1,5 @@
 body, html, #root, #app {
-  font-size: 8px;
+  font-size: 16px;
   margin: 0;
   padding: 0;
   font-family: sans-serif;
@@ -9,13 +9,13 @@ body, html, #root, #app {
 }
 
 button {
-  font-size: 8px;
+  font-size: 12px;
   font-family: 'Press Start 2P', cursive;
   cursor: pointer;
 }
 
 label {
-  font-size: 8px;
+  font-size: 12px;
   font-family: 'Press Start 2P', cursive;
 }
 
@@ -85,4 +85,8 @@ label {
 
 #opacitySlider {
   cursor: pointer;
+}
+
+#preview-div {
+  font-size: 12px;
 }

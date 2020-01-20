@@ -30,28 +30,38 @@ class MiniFrame extends React.Component {
       }
     }
 
-    // console.log(`${this.props.frameNumber+1}`)
-    ctx.font = "96px Press Start 2P";
+    ctx.font = "24px Courier New";
     ctx.fillStyle = "black";
-    // ctx.textAlign = "center";
-    ctx.fillText(`${this.props.frameNumber+1}.`, 0, canvas.height);
+    ctx.fillText(`${this.props.frameNumber+1}`, 0, canvas.height);
     
     if (this.state.mouseOver) {
+      this.drawRightBar(ctx, canvas)
       this.drawCross(ctx, canvas)
       this.drawDuplicate(ctx, canvas)
     }
   }
 
+  drawRightBar (ctx, canvas) {
+    ctx.fillStyle = "white"; ctx.fillRect(canvas.width-7*canvas.width/50, 0, 7*canvas.width/50, canvas.height);
+    ctx.fillStyle = "red"; ctx.fillRect(canvas.width-7*canvas.width/50, 0, 7*canvas.width/50, 7*canvas.width/50)
+  }
+
   drawCross (ctx, canvas) {
-    ctx.beginPath(); ctx.moveTo(canvas.width-canvas.width/50, canvas.width/50); ctx.lineTo(canvas.width-5*canvas.width/50, 5*canvas.width/50);
+    ctx.beginPath(); 
+      ctx.moveTo(canvas.width-canvas.width/50, canvas.width/50); ctx.lineTo(canvas.width-5*canvas.width/50, 5*canvas.width/50);
       ctx.moveTo(canvas.width-5*canvas.width/50, canvas.width/50); ctx.lineTo(canvas.width-canvas.width/50, 5*canvas.width/50);
       ctx.moveTo(canvas.width-7*canvas.width/50, 0); ctx.lineTo(canvas.width-7*canvas.width/50, 7*canvas.width/50);
       ctx.moveTo(canvas.width, 7*canvas.width/50); ctx.lineTo(canvas.width-7*canvas.width/50, 7*canvas.width/50);
-      ctx.closePath(); ctx.stroke()
+    ctx.closePath(); ctx.stroke()
   }
 
-  drawDuplicate () {
-
+  drawDuplicate (ctx, canvas) {
+    ctx.beginPath(); 
+      ctx.moveTo(canvas.width-7*canvas.width/50, 7*canvas.width/50); ctx.lineTo(canvas.width-7*canvas.width/50, canvas.height);
+    ctx.closePath(); ctx.stroke(); ctx.fillStyle = "black"
+    ctx.translate( canvas.width-canvas.width/50, canvas.width/6 );
+    ctx.rotate( 3 * Math.PI / 2 ); ctx.textAlign = "right";
+    ctx.fillText(`clone`, 0,0);
   }
 
   handleClick = e => {
@@ -59,6 +69,7 @@ class MiniFrame extends React.Component {
     const rect = e.target.getBoundingClientRect();
     let x = e.clientX - rect.left; let y = e.clientY - rect.top;
     if (x >= canvas.width-7*canvas.width/50 && y <= 7*canvas.width/50) this.props.deleteFrame(this.props.frameNumber) 
+    else if (x >= canvas.width-7*canvas.width/50 && y > 7*canvas.width/50) this.props.duplicateFrame(this.props.frameNumber)
     else this.props.changeFrame(this.props.frameNumber)
   }
 

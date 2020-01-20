@@ -8,6 +8,7 @@ const MiniFrames = props => {
     return props.frames.map((frame, i) => {
       return <MiniFrame 
               deleteFrame={i => props.deleteFrame(i)} 
+              duplicateFrame={i => props.duplicateFrame(i)}
               selectedFrameNum={props.frameNum} 
               changeFrame={i => props.changeFrame(i)} 
               key={`frame${i}`} 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import MiniFrames from './MiniFrames';
 
 const FrameSelector = props => {
@@ -17,14 +17,16 @@ const FrameSelector = props => {
           onClick={() => onFrameChange('next')}>{props.isLastFrame ? '=>' : '=>'}
         </button>
       </div>
-      <div>
+      <div id='preview-div'>
       <button onClick={() => props.togglePreviewMode()}>preview mode: {props.previewMode ? 'on' : 'off'}</button>
       <br/>
       <label>Preview speed:</label>
-      <input id="framerateSlider" type="range" name="framerate" min="1" max="24" value={props.previewRate} onChange={e => props.changePreviewRate(e.target.value)} step='1'></input>
+      <input id="framerateSlider" type="range" name="framerate" min="1" max="36" value={props.previewRate} onChange={e => props.changePreviewRate(e.target.value)} step='1'></input>
       {props.previewRate}fps
       </div>
-      <MiniFrames deleteFrame={i => props.deleteFrame(i)} 
+      <MiniFrames 
+        deleteFrame={i => props.deleteFrame(i)}
+        duplicateFrame={i => props.duplicateFrame(i)} 
         addBlankFrame={() => props.addBlankFrame()} 
         frameNum={props.frameNum} 
         changeFrame={i => props.changeFrame(i)} 

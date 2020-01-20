@@ -65,7 +65,7 @@ const FrameEditor = props => {
 
   return(
     <div className='FrameEditor'>
-      <button onClick={() => toggleGrid()}> turn grid {showGrid ? 'off' : 'on'}</button>
+      <button onClick={() => toggleGrid()}> turn grid {showGrid ? 'off' : 'on'}</button><br/>
       <label>
         <input type="radio" value="previous" checked={overlayType==='previous'} onChange={e => toggleOverlay(e.target.value)}/>
         Previous frame
