@@ -2,6 +2,8 @@ import React from 'react'
 
 class MiniFrame extends React.Component {
 
+  state={}
+
   componentDidMount() {
     this.renderMiniFrame()
   }
@@ -33,6 +35,8 @@ class MiniFrame extends React.Component {
     return(
       <div id='miniFrame'>
         <canvas 
+          onMouseOver={}
+          onMouseOut={}
           style={this.props.frameNumber === this.props.selectedFrameNum ? {border: '2px solid white', boxShadow: `6px 6px 5px grey`} : null }
           id='miniCanvas' 
           onClick={() => this.handleClick()} 

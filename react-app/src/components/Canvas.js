@@ -11,14 +11,24 @@ class Canvas extends React.Component {
   }
 
   renderFrame = () => {
-    const {frame} = this.props;
+    const {frame, overlay} = this.props;
     const pixelsTall = frame.length; const pixelsAcross = frame[0].length
     const canvas = this.refs.canvas; 
     const ctx = canvas.getContext("2d"); 
     const width = canvas.width; 
     const blockSize = width/frame[0].length;
-    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, width, width);
-    // console.log(blockSize)
+
+    if (!!overlay[0]) {
+      if (overlay[1]==='frame') {
+        for(let y = 0; y < pixelsTall; y++){
+          for(let x = 0; x < pixelsAcross; x++){
+            ctx.fillStyle=overlay[0][y][x];
+            ctx.fillRect(x*blockSize, y*blockSize, blockSize, blockSize);
+        }}
+      }
+    }
+
+    ctx.globalAlpha = 1-this.props.opacity    
 
     for(let y = 0; y < pixelsTall; y++){
       for(let x = 0; x < pixelsAcross; x++){

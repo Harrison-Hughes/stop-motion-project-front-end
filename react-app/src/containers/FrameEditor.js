@@ -9,10 +9,13 @@ const FrameEditor = props => {
   const[frame, setFrame] = useState(props.selectedFrame)
   const[brushType, setBrushType] = useState("1 square")
   const[showGrid, setShowGrid] = useState(false)
-  const[overlayType, setOverlayType] = useState('next')
+  const[overlayType, setOverlayType] = useState('previous')
+  const[opacity, setOpacity] = useState('0')
+  const[overlay, setOverlay] = useState([props.frameUp, 'frame'])
 
   useEffect(() => setFrame(props.selectedFrame),[props.selectedFrame])
   useEffect(() => props.updateFrame(frame),[frame])
+  useEffect(() => setOverlay(chooseOverlay(overlayType)),[props.frameUp])
 
   const editSquarePixels = arr => {
     let ycrds = arr.map(coord => coord[1]); let xcrds = arr.map(coord => coord[0]);
@@ -38,8 +41,17 @@ const FrameEditor = props => {
   //   }));
   // }
 
+  const toggleOverlay = val => {
+    setOverlayType(val);
+    setOverlay(chooseOverlay(val))
+  }
+
+  const chooseOverlay = val => {
+    if (val === 'next') return [props.frameUp, 'frame']
+    else if (val === 'previous') return [props.frameDown, 'frame']
+  }
+
   const editPixel = (xcrd, ycrd) => {
-    // console.log([xcrd, ycrd])
     setFrame(frame.map((row, rowIndex) => {
       if (rowIndex !== ycrd) return row
       else {return row.map((col, colIndex) => {
@@ -55,15 +67,19 @@ const FrameEditor = props => {
     <div className='FrameEditor'>
       <button onClick={() => toggleGrid()}> turn grid {showGrid ? 'off' : 'on'}</button>
       <label>
-        <input type="radio" value="previous" checked={overlayType==='previous'} onChange={e => setOverlayType(e.target.value)}/>
+        <input type="radio" value="previous" checked={overlayType==='previous'} onChange={e => toggleOverlay(e.target.value)}/>
         Previous frame
       </label>
       <label>
-        <input type="radio" value="next" checked={overlayType==='next'} onChange={e => setOverlayType(e.target.value)}/>
+        <input type="radio" value="next" checked={overlayType==='next'} onChange={e => toggleOverlay(e.target.value)}/>
         Next frame
-      </label>
+      </label><br/>
+      <label>Mix:</label>
+      <input id="opacitySlider" type="range" name="framerate" min="0" max="1" value={opacity} onChange={e => setOpacity(e.target.value)} step='0.01'></input>
 
        <Canvas 
+        overlay={overlay}
+        opacity={opacity}
         brushType={brushType} 
         frame={frame} 
         selectedColor={selectedColor} 
