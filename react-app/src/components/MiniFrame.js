@@ -2,7 +2,9 @@ import React from 'react'
 
 class MiniFrame extends React.Component {
 
-  state={}
+  state={
+    mouseOver: false
+  }
 
   componentDidMount() {
     this.renderMiniFrame()
@@ -27,19 +29,58 @@ class MiniFrame extends React.Component {
         ctx.fillRect(x*blockSize, y*blockSize, blockSize, blockSize);
       }
     }
+
+    // console.log(`${this.props.frameNumber+1}`)
+    ctx.font = "96px Press Start 2P";
+    ctx.fillStyle = "black";
+    // ctx.textAlign = "center";
+    ctx.fillText(`${this.props.frameNumber+1}.`, 0, canvas.height);
+    
+    if (this.state.mouseOver) {
+      this.drawCross(ctx, canvas)
+      this.drawDuplicate(ctx, canvas)
+    }
   }
 
-  handleClick = () => {this.props.changeFrame(this.props.frameNumber)}
+  drawCross (ctx, canvas) {
+    ctx.beginPath(); ctx.moveTo(canvas.width-canvas.width/50, canvas.width/50); ctx.lineTo(canvas.width-5*canvas.width/50, 5*canvas.width/50);
+      ctx.moveTo(canvas.width-5*canvas.width/50, canvas.width/50); ctx.lineTo(canvas.width-canvas.width/50, 5*canvas.width/50);
+      ctx.moveTo(canvas.width-7*canvas.width/50, 0); ctx.lineTo(canvas.width-7*canvas.width/50, 7*canvas.width/50);
+      ctx.moveTo(canvas.width, 7*canvas.width/50); ctx.lineTo(canvas.width-7*canvas.width/50, 7*canvas.width/50);
+      ctx.closePath(); ctx.stroke()
+  }
+
+  drawDuplicate () {
+
+  }
+
+  handleClick = e => {
+    const canvas = this.refs.canvas; 
+    const rect = e.target.getBoundingClientRect();
+    let x = e.clientX - rect.left; let y = e.clientY - rect.top;
+    if (x >= canvas.width-7*canvas.width/50 && y <= 7*canvas.width/50) this.props.deleteFrame(this.props.frameNumber) 
+    else this.props.changeFrame(this.props.frameNumber)
+  }
+
+  handleMouseOver = () => {
+    this.setState({mouseOver: true})
+    this.renderMiniFrame()
+  }
+
+  handleMouseOut = () => {
+    this.setState({mouseOver: false})
+    this.renderMiniFrame()
+  }
 
   render() {
     return(
       <div id='miniFrame'>
         <canvas 
-          onMouseOver={}
-          onMouseOut={}
+          onMouseOver={() => this.handleMouseOver()}
+          onMouseOut={() => this.handleMouseOut()}
           style={this.props.frameNumber === this.props.selectedFrameNum ? {border: '2px solid white', boxShadow: `6px 6px 5px grey`} : null }
           id='miniCanvas' 
-          onClick={() => this.handleClick()} 
+          onClick={e => this.handleClick(e)} 
           ref="canvas" 
           width={160} 
           height={100} />

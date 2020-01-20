@@ -1,13 +1,22 @@
 body, html, #root, #app {
+  font-size: 8px;
   margin: 0;
   padding: 0;
   font-family: sans-serif;
   width: 100%;
   height: 100%;
+  font-family: 'Press Start 2P', cursive;
 }
 
 button {
+  font-size: 8px;
+  font-family: 'Press Start 2P', cursive;
   cursor: pointer;
+}
+
+label {
+  font-size: 8px;
+  font-family: 'Press Start 2P', cursive;
 }
 
 #mainCanvas {

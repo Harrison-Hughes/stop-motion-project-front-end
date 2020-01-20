@@ -23,9 +23,13 @@ const Animator = () => {
 
   const deleteFrame = i => {
     if (frames.length > 1) {
-      if (i>=frameNum) setframeNum(frameNum-1)
+      if (i <= frameNum) setframeNum(frameNum-1)
       setFrames(frames.filter((f, index) => index !== i))
     }
+  }
+
+  const duplicateFrame = i => {
+    
   }
 
   const togglePreviewMode = () => {
@@ -48,6 +52,7 @@ const Animator = () => {
         updateFrame={edit => setFrames(frames.map((val, index) => index === frameNum ? edit : val ))}
         />
        <FrameSelector 
+        deleteFrame={i => deleteFrame(i)}
         previewMode={previewMode} togglePreviewMode={() => togglePreviewMode()}
         previewRate={previewRate} changePreviewRate={val => setPreviewRate(val)}
         addBlankFrame={() => addBlankFrame()}

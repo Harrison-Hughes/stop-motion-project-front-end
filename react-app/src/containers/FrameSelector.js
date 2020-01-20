@@ -24,7 +24,11 @@ const FrameSelector = props => {
       <input id="framerateSlider" type="range" name="framerate" min="1" max="24" value={props.previewRate} onChange={e => props.changePreviewRate(e.target.value)} step='1'></input>
       {props.previewRate}fps
       </div>
-      <MiniFrames addBlankFrame={() => props.addBlankFrame()} frameNum={props.frameNum} changeFrame={i => props.changeFrame(i)} frames={props.frames}/>
+      <MiniFrames deleteFrame={i => props.deleteFrame(i)} 
+        addBlankFrame={() => props.addBlankFrame()} 
+        frameNum={props.frameNum} 
+        changeFrame={i => props.changeFrame(i)} 
+        frames={props.frames}/>
     </div>
   )
 }
