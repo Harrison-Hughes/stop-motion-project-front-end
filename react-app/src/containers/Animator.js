@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, {useState,  useEffect, useRef} from 'react';
 import '../css/Animator.css';
 import demoFilms from '../components/DemoFilms.js'
@@ -11,20 +10,6 @@ const Animator = () => {
   const[frameNum, setframeNum] = useState(0);
   const[previewMode, setPreviewMode] = useState(false)
   const[previewRate, setPreviewRate] = useState('1')
-=======
-import React, { useState, useEffect, useRef } from "react";
-import "../css/Animator.css";
-import demoFilm from "../components/DemoFilms.js";
-import FrameEditor from "./FrameEditor";
-import FrameSelector from "./FrameSelector";
-
-const Animator = () => {
-  const [pixelDimensions] = useState([40, 25]);
-  const [frames, setFrames] = useState(demoFilm);
-  const [frameNum, setframeNum] = useState(0);
-  const [previewMode, setPreviewMode] = useState(false);
-  const [previewRate, setPreviewRate] = useState("1");
->>>>>>> 47b0cfa762c842e50bed8423d7bb8c778adcf8e7
 
   useInterval(
     () => {
