@@ -75,7 +75,7 @@
 //               <div>
 //                 <p>
 //                   Logged in as {user.username}{" - "}
-//                   <Link onClick={() => logout()}>logout</Link>
+//                   <Link to="" onClick={() => logout()}>logout</Link>
 //                 </p>
 //                 <Animator />
 //               </div>
