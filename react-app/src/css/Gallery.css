@@ -1,0 +1,36 @@
+body, html, #root, #app {
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  width: 100%;
+  height: 100%;
+  font-family: 'Press Start 2P', cursive;
+}
+
+h3 {
+  font-family: 'Press Start 2P', cursive;
+}
+
+.arrange-horizontally > * {
+  display: inline-block;
+  text-align: center;
+}
+
+button {
+  font-size: 12px;
+  font-family: 'Press Start 2P', cursive;
+  cursor: pointer;
+  padding: 2px;
+}
+
+.big-button {
+  font-size: 22px;
+  font-family: 'Press Start 2P', cursive;
+  cursor: pointer;
+  padding: 6px;
+}
+
+.FilmCards {padding: 16px;}
+.FilmCard {padding: 8px;}
+.thumbnail {padding: 8px;}
