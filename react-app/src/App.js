@@ -75,7 +75,9 @@ const App = () => {
               <div>
                 <p>
                   Logged in as {user.username}.{" "}
-                  <Link onClick={() => logout()}>Logout.</Link>
+                  <Link to="" onClick={() => logout()}>
+                    Logout.
+                  </Link>
                 </p>
                 <Animator />
               </div>
