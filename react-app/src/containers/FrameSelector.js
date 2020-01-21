@@ -4,7 +4,6 @@ import MiniFrames from './MiniFrames';
 const FrameSelector = props => {
 
   const onFrameChange = num => {props.changeFrame(num)}
-
   return(
     <div className='FrameSelector'>
       <div>
@@ -21,7 +20,7 @@ const FrameSelector = props => {
       <button onClick={() => props.togglePreviewMode()}>preview mode: {props.previewMode ? 'on' : 'off'}</button>
       <br/>
       <label>Preview speed:</label>
-      <input id="framerateSlider" type="range" name="framerate" min="1" max="36" value={props.previewRate} onChange={e => props.changePreviewRate(e.target.value)} step='1'></input>
+      <input id="framerateSlider" type="range" name="framerate" min="1" max="24" value={props.previewRate} onChange={e => props.changePreviewRate(e.target.value)} step='1'></input>
       {props.previewRate}fps
       </div>
       <MiniFrames 
