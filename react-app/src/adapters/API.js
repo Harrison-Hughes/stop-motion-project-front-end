@@ -2,6 +2,8 @@ const API_ENDPOINT = "http://localhost:3000";
 const LOGIN_URL = `${API_ENDPOINT}/login`;
 const SIGNUP_URL = `${API_ENDPOINT}/users`;
 const VALIDATE_URL = `${API_ENDPOINT}/validate`;
+const FILMS_URL = `${API_ENDPOINT}/films`;
+const FRAMES_URL = `${API_ENDPOINT}/frames`;
 
 const jsonify = resp => {
   if (resp.ok) {
@@ -52,22 +54,48 @@ const validate = () =>
     .then(jsonify)
     .then(handleUserResponse);
 
-// const postPost = post =>
-//   fetch(POSTS_URL, {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//       Accept: "application/json",
-//       Authorisation: localStorage.token
-//     },
-//     body: JSON.stringify({ post })
-//   }).then(jsonify);
+const postFilm = film =>
+  fetch(FILMS_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorisation: localStorage.token
+    },
+    body: JSON.stringify({ film })
+  }).then(jsonify);
+
+const postFrame = (filmId, frameString, o) =>
+  fetch(FRAMES_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorisation: localStorage.token
+    },
+    body: JSON.stringify({
+      film_id: filmId,
+      frame_string: frameString,
+      order: o
+    })
+  }).then(jsonify);
+
+const fetchFilms = () =>
+  fetch(FILMS_URL, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorisation: localStorage.token
+    }
+  }).then(jsonify);
 
 export default {
   login,
   signup,
   validate,
-  // postPost,
+  postFilm,
+  postFrame,
+  fetchFilms,
   hasToken: () => !!localStorage.token,
   clearToken: () => localStorage.removeItem("token")
 };

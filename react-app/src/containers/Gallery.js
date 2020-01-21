@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, {useState} from 'react';
 import '../css/Gallery.css';
 import demoFilms from '../components/DemoFilms.js'
@@ -56,6 +57,39 @@ const Gallery = () => {
 //         op += op * 0.1;
 //     }, 10);
 // }
+=======
+import React, { useState } from "react";
+import "../css/Gallery.css";
+import demoFilms from "../components/DemoFilms.js";
+import FilmCards from "./FilmCards";
+import NewFilmForm from "../components/NewFilmForm";
+
+const Gallery = ({ handleFilm }) => {
+  const blankNewFilmForm = {};
+  const [currMode, setCurrMode] = useState("preview");
+  const [showNewFilmForm, setShowNewFilmForm] = useState(false);
+  // const
+
+  return (
+    <div className="GalleryDiv">
+      <br />
+      <h1>YOUR MOVIES</h1>
+      <div>
+        <button
+          onClick={() => setShowNewFilmForm(!showNewFilmForm)}
+          className="big-button"
+        >
+          NEW FILM
+        </button>
+        {showNewFilmForm ? <NewFilmForm onSuccess={handleFilm} /> : null}
+      </div>
+      <br />
+
+      <FilmCards films={demoFilms} />
+    </div>
+  );
+};
+>>>>>>> 47b0cfa762c842e50bed8423d7bb8c778adcf8e7
 
 // const useInterval = (callback, delay) => {
 //   const savedCallback = useRef();
@@ -77,4 +111,4 @@ const Gallery = () => {
 //   }, [delay]);
 // }
 
-export default Gallery
+export default Gallery;
