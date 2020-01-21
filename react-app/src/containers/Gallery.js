@@ -1,25 +1,34 @@
-import React, {useState} from 'react';
-import '../css/Gallery.css';
-import demoFilms from '../components/DemoFilms.js'
-import FilmCards from './FilmCards';
+import React, { useState } from "react";
+import "../css/Gallery.css";
+import demoFilms from "../components/DemoFilms.js";
+import FilmCards from "./FilmCards";
+import NewFilmForm from "../components/NewFilmForm";
 
-const Gallery = () => {
-  const blankNewFilmForm = {}
-  const[currMode, setCurrMode] = useState('preview')
+const Gallery = ({ handleFilm }) => {
+  const blankNewFilmForm = {};
+  const [currMode, setCurrMode] = useState("preview");
+  const [showNewFilmForm, setShowNewFilmForm] = useState(false);
   // const
-  
-  return(
-    <div className='GalleryDiv'>
-    <br/>
+
+  return (
+    <div className="GalleryDiv">
+      <br />
       <h1>YOUR MOVIES</h1>
-      <div><button className='big-button'>NEW FILM</button></div><br/>
+      <div>
+        <button
+          onClick={() => setShowNewFilmForm(!showNewFilmForm)}
+          className="big-button"
+        >
+          NEW FILM
+        </button>
+        {showNewFilmForm ? <NewFilmForm onSuccess={handleFilm} /> : null}
+      </div>
+      <br />
 
-      <FilmCards films={demoFilms}/>
+      <FilmCards films={demoFilms} />
     </div>
-  )
-}
-
-
+  );
+};
 
 // const useInterval = (callback, delay) => {
 //   const savedCallback = useRef();
@@ -41,4 +50,4 @@ const Gallery = () => {
 //   }, [delay]);
 // }
 
-export default Gallery
+export default Gallery;
