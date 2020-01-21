@@ -30,31 +30,50 @@ class MiniFrame extends React.Component {
         ctx.fillRect(x*blockSize, y*blockSize, blockSize, blockSize);
       }
     }
-
-    // ctx.fillStyle = "white"; ctx.fillRect(canvas.width-7*canvas.width/50, 0, 7*canvas.width/50, 7*canvas.width/50);
-    // ctx.font = "24px Courier New"; ctx.textAlign = 'start'; ctx.fillStyle = "black"; ctx.fillText(`${this.props.frameNumber+1}`, 0, canvas.height);
     
-    // if (this.state.mouseOver) {
-    //   console.log('mouseover')
-    // }
+    if (this.state.mouseOver) {
+      this.writePlay(ctx, canvas)
+    }
   }
-  
+
+  writePlay = (ctx, canvas) => {
+    // ctx.textAlign = "centre";
+    ctx.translate(canvas.width/4, 9*canvas.height/16 )
+    ctx.fillStyle = "white"; ctx.font = "36px Courier New"; ctx.strokeText(`play`, 0,0);
+    ctx.lineWidth = 6; ctx.fillText(`play`, 0,0);
+    ctx.fillStyle = "white"; ctx.font = "36px Courier New"; ctx.strokeText(`play`, 0,0);
+    ctx.lineWidth = 6; ctx.fillText(`play`, 0,0);
+  }
+
+  handleMouseOver = () => {
+    this.setState({mouseOver: true})
+    this.renderThumb()
+  }
+
+  handleMouseOut = () => {
+    this.setState({mouseOver: false})
+    this.renderThumb()
+  }
+
   render() {
     return(
       <div className="FilmCard"><div className="arrange-horizontally">
         <div className='thumbnail'>
           <canvas 
+            onClick={() => this.props.playFilm(this.props.film.id)}
+            onMouseOver={() => this.handleMouseOver()}
+            onMouseOut={() => this.handleMouseOut()}
             id='miniCanvas' 
             ref="canvas" 
             width={160} 
             height={100}  
           />
         </div>
-        <div>
+        <div className='details'>
           <h3 as='a'>{this.props.film.name}</h3>
           <p>{this.props.film.description}</p>
-          <button>edit</button>
-          <button>delete</button>
+          <button className="edit-button">edit</button>
+          <button className="delete-button">delete</button>
         </div>
       </div></div>
     )

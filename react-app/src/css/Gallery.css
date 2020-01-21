@@ -8,8 +8,19 @@ body, html, #root, #app {
   font-family: 'Press Start 2P', cursive;
 }
 
+canvas {
+  cursor: pointer;
+  border: 3px solid black;
+}
+
+p {
+  font-size: 12px;
+  text-align: left
+}
+
 h3 {
   font-family: 'Press Start 2P', cursive;
+  text-align: left
 }
 
 .arrange-horizontally > * {
@@ -31,6 +42,23 @@ button {
   padding: 6px;
 }
 
-.FilmCards {padding: 16px;}
-.FilmCard {padding: 8px;}
-.thumbnail {padding: 8px;}
+.delete-button {
+  margin-right: 100px;
+  margin-bottom: 10px;
+}
+.edit-button {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.FilmCards {
+  padding: 16px;
+  background-color: rgba(62, 252, 188, 0.603);
+}
+.FilmCard {
+  padding: 8px;
+  border: 3px solid black;
+  margin: 3px
+  
+}
+.thumbnail {padding-right: 20px;}

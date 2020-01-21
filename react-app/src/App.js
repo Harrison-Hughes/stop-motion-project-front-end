@@ -104,7 +104,6 @@ const App = () => (
     {/* <Animator /> */}
     <Gallery />
   </div>
-
 )
 
 export default App;
