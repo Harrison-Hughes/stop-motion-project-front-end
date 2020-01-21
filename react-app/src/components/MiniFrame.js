@@ -30,9 +30,8 @@ class MiniFrame extends React.Component {
       }
     }
 
-    ctx.font = "24px Courier New";
-    ctx.fillStyle = "black";
-    ctx.fillText(`${this.props.frameNumber+1}`, 0, canvas.height);
+    ctx.fillStyle = "white"; ctx.fillRect(canvas.width-7*canvas.width/50, 0, 7*canvas.width/50, 7*canvas.width/50);
+    ctx.font = "24px Courier New"; ctx.textAlign = 'start'; ctx.fillStyle = "black"; ctx.fillText(`${this.props.frameNumber+1}`, 0, canvas.height);
     
     if (this.state.mouseOver) {
       this.drawRightBar(ctx, canvas)

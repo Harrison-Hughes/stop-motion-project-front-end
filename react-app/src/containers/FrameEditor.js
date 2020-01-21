@@ -28,18 +28,16 @@ const FrameEditor = props => {
     }));
   }
 
-  // const editAnyPixels = arr => {
-  //   let ycrds = arr.map(coord => coord[1]); let xcrds = arr.map(coord => coord[0]);
-  //   console.log(xcrds, ycrds)
-
-  //   setFrame(frame.map((row, rowIndex) => {
-  //     if (rowIndex !== ycrd) return row
-  //     else {return row.map((col, colIndex) => {
-  //       if (colIndex !== xcrd) return col
-  //       else return selectedColor
-  //     })};
-  //   }));
-  // }
+  const editRectanglePixels = (ycrds, xcrds) => {
+    // console.log(ycrds, xcrds)
+    setFrame(frame.map((row, rowIndex) => {
+      if (!ycrds.includes(rowIndex)) return row
+      else {return row.map((col, colIndex) => {
+        if (!xcrds.includes(colIndex)) return col
+        else return selectedColor
+      })};
+    }));
+  }
 
   const toggleOverlay = val => {
     setOverlayType(val);
@@ -69,7 +67,7 @@ const FrameEditor = props => {
       <label>
         <input type="radio" value="previous" checked={overlayType==='previous'} onChange={e => toggleOverlay(e.target.value)}/>
         Previous frame
-      </label>
+      </label><br/>
       <label>
         <input type="radio" value="next" checked={overlayType==='next'} onChange={e => toggleOverlay(e.target.value)}/>
         Next frame
@@ -85,6 +83,7 @@ const FrameEditor = props => {
         selectedColor={selectedColor} 
         editPixel={(xcrd, ycd) => editPixel(xcrd, ycd)} 
         editSquarePixels={arr => editSquarePixels(arr)} 
+        editRectanglePixels={(ycrds, xcrds) => editRectanglePixels(ycrds, xcrds)} 
         updateFrame={updatedFrame => setFrame(updatedFrame)}
         showGrid={showGrid}/>
 

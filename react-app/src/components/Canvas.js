@@ -2,11 +2,16 @@ import React from 'react'
 
 class Canvas extends React.Component {
 
+  state={
+    customBrushO: null
+  }
+
   componentDidMount() {
     this.renderFrame()
   }
 
   componentDidUpdate() {
+    // console.log('did update')
     this.renderFrame()
   }
 
@@ -18,17 +23,20 @@ class Canvas extends React.Component {
     const width = canvas.width; 
     const blockSize = width/frame[0].length;
 
+    // if (this.props.brushType.split(' ')[1] === 'square') this.setState({customBrushO: null})
+
     if (!!overlay[0]) {
       if (overlay[1]==='frame') {
         for(let y = 0; y < pixelsTall; y++){
           for(let x = 0; x < pixelsAcross; x++){
+            ctx.lineWidth = '6'; ctx.strokeStyle = 'red'
             ctx.fillStyle=overlay[0][y][x];
             ctx.fillRect(x*blockSize, y*blockSize, blockSize, blockSize);
         }}
       }
     }
 
-    ctx.globalAlpha = 1-this.props.opacity    
+    ctx.globalAlpha = 1-this.props.opacity 
 
     for(let y = 0; y < pixelsTall; y++){
       for(let x = 0; x < pixelsAcross; x++){
@@ -36,15 +44,24 @@ class Canvas extends React.Component {
         ctx.fillRect(x*blockSize, y*blockSize, blockSize, blockSize);
     }}
     if (this.props.showGrid) {
+      ctx.lineWidth = 1;
       for (let x=1; x<(canvas.width/blockSize); x++){ctx.moveTo(x*blockSize, 0); ctx.lineTo(x*blockSize, canvas.height)}
       for (let y=1; y<(canvas.height/blockSize); y++){ctx.moveTo(0, y*blockSize); ctx.lineTo(canvas.width, y*blockSize)}
 
       ctx.strokeStyle = "#ddd";
       ctx.stroke();
     }
-  }
 
-  drawGrid = () => {}
+    for(let y = 0; y < pixelsTall; y++){
+      for(let x = 0; x < pixelsAcross; x++){
+        if (this.state.customBrushO !== null) {
+          if (x === this.state.customBrushO[0] && y === this.state.customBrushO[1]) {
+            ctx.lineWidth = 8; ctx.strokeStyle= 'white'; 
+            ctx.strokeRect(x*blockSize, y*blockSize, blockSize, blockSize);
+            ctx.lineWidth = 2; ctx.strokeStyle= 'black'; 
+            ctx.strokeRect(x*blockSize, y*blockSize, blockSize, blockSize);
+    }}}}
+  }
 
   handleClick = e => {
     const rect = e.target.getBoundingClientRect();
@@ -58,6 +75,29 @@ class Canvas extends React.Component {
       if (this.props.brushType === '1 square') this.props.editPixel(xcrd, ycrd)
       else this.squareBrushPaint(xcrd, ycrd, 2*this.props.brushType.split(' ')[0] -1)
     }
+    else if (this.props.brushType === 'custom') {
+      if (this.state.customBrushO === null) {
+        this.setState({customBrushO: [xcrd, ycrd]})
+      }
+      else {
+        this.customPaint(this.state.customBrushO, [xcrd, ycrd])
+        this.setState({customBrushO: null})
+      }
+    }
+  }
+
+  customPaint = (coord1, coord2) => {
+    let xbase=[coord1[0], coord2[0]].sort(function(a, b) {return a-b}), ybase=[coord1[1], coord2[1]].sort(function(a, b) {return a-b});
+    // console.log(this.findPointsBetweenIncl(xbase), this.findPointsBetweenIncl(ybase))
+    this.props.editRectanglePixels(this.findPointsBetweenIncl(ybase), this.findPointsBetweenIncl(xbase))
+  }
+
+  findPointsBetweenIncl = arr => {
+    let output = [];
+    for (let i=arr[0]; i<=arr[1]; i++) {
+      output.push(i)
+    }
+    return output
   }
 
   squareBrushPaint = (xcrd, ycrd, squares) => {
