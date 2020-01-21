@@ -1,12 +1,12 @@
 import React, {useState,  useEffect, useRef} from 'react';
 import '../css/Animator.css';
-import demoFilm from '../components/BaseFrames.js'
+import demoFilms from '../components/DemoFilms.js'
 import FrameEditor from './FrameEditor';
 import FrameSelector from './FrameSelector';
 
 const Animator = () => {
   const[pixelDimensions] = useState([40, 25])
-  const[frames, setFrames] = useState(demoFilm);
+  const[frames, setFrames] = useState(demoFilms[0].frames);
   const[frameNum, setframeNum] = useState(0);
   const[previewMode, setPreviewMode] = useState(false)
   const[previewRate, setPreviewRate] = useState('1')

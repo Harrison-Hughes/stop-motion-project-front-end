@@ -6,13 +6,13 @@ let f4 = bag(40, 25, '#66ff33'), f5 =  bag(40, 25, '#99ff33'), f6 = bag(40, 25, 
 let demoFilms = [
   {
     id: 0,
-    name: 'film1',
+    name: 'film 1',
     description: 'shades of blue',
     frames: [f1, f2, f3]
   }, 
   {
     id: 1,
-    name: 'film2',
+    name: 'film 2',
     description: 'shades of green',
     frames: [f4, f5, f6] 
   },

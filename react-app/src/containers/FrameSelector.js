@@ -4,7 +4,6 @@ import MiniFrames from './MiniFrames';
 const FrameSelector = props => {
 
   const onFrameChange = num => {props.changeFrame(num)}
-
   return(
     <div className='FrameSelector'>
       <div>

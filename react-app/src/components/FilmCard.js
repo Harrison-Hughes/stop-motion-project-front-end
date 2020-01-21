@@ -57,7 +57,9 @@ class MiniFrame extends React.Component {
 
   render() {
     return(
-      <div className="FilmCard"><div className="arrange-horizontally">
+      // <div className="FilmCard">
+      <div className="ui card">
+      <div className="arrange-horizontally">
         <div className='thumbnail'>
           <canvas 
             onClick={() => this.props.playFilm(this.props.film.id)}
