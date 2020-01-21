@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
-import Canvas from '../components/Canvas';
-import '../css/Animator.css'
-import Palette from '../components/Palette';
-import Brush from '../components/Brush';
+import React, { useState, useEffect } from "react";
+import Canvas from "../components/Canvas";
+import "../css/Animator.css";
+import Palette from "../components/Palette";
+import Brush from "../components/Brush";
 
 const FrameEditor = props => {
   const[selectedColor, setSelectedColor] = useState("#FFF")
@@ -95,7 +95,7 @@ const FrameEditor = props => {
         brushType={brushType} 
         changeBrushType={type => setBrushType(type)}/>
     </div>
-  )
-}
+  );
+};
 
-export default FrameEditor
+export default FrameEditor;
