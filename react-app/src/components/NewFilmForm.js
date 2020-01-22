@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import API from "../adapters/API";
+import '../css/Gallery.css';
 
-const NewFilmForm = ({ onSuccess }) => {
+
+const NewFilmForm = () => {
   const [formData, setFormData] = useState({
     title: "",
     description: ""
@@ -14,16 +16,26 @@ const NewFilmForm = ({ onSuccess }) => {
     });
   };
 
-  const blankArrayGenerator = (xdim, ydim, color) =>
-    [...Array(ydim)].map(() => Array(xdim).fill(color));
+  const handleTitleChange = e => {
+    setFormData({
+      ...formData,
+      title: e.target.value
+    });
+  }
 
-  //   const defaultFrame = JSON.parse(blankArrayGenerator(40, 25, `FFF`));
+  const handleDescChange = e => {
+    setFormData({
+      ...formData,
+      description: e.target.value
+    });
+  }
+
+  const blankArrayGenerator = (xdim, ydim, color) => [...Array(ydim)].map(() => Array(xdim).fill(color));
 
   const handleSubmit = event => {
     event.preventDefault();
     API.postFilm(formData)
       .then(film => {
-        // onSuccess(film);
         API.postFrame(
           film.id,
           JSON.stringify(blankArrayGenerator(40, 25, "#FFF")),
@@ -31,24 +43,27 @@ const NewFilmForm = ({ onSuccess }) => {
         );
         return film;
       })
-      // .then(console.log);
   };
 
   return (
-    <form onChange={handleChange} onSubmit={handleSubmit}>
-      <input
-        type="title"
-        name="title"
-        placeholder="Film title"
-        value={formData.title}
-      />
-      <textarea
-        name="description"
-        placeholder="Film description"
-        value={formData.description}
-      />
-      <input type="submit" value="Create film" />
-    </form>
+    <div >
+      <form onSubmit={handleSubmit}>
+        <input
+          onChange={handleTitleChange}
+          type="title"
+          name="title"
+          placeholder="Film title"
+          value={formData.title}
+        /><br/>
+        <textarea
+          onChange={handleDescChange}
+          name="description"
+          placeholder="Film description"
+          value={formData.description}
+        /><br/>
+        <input className='big-button' type="submit" value="Create film" />
+      </form>
+    </div>
   );
 };
 
