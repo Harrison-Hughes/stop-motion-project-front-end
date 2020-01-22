@@ -1,17 +1,16 @@
-import React, {useState, useEffect} from 'react';
-import '../css/Gallery.css';
-import demoFilms from '../components/DemoFilms.js'
-import FilmCards from './FilmCards';
-import Cinema from '../components/Cinema';
-import NewFilmForm from '../components/NewFilmForm'
 
-const Gallery = (props) => {
-  
-  const[selectedFilm, setSelectedFilm] = useState(null)
-  const[browseMode, setBrowseMode] = useState(true)
-  const[showNewFilmForm, setShowNewFilmForm] = useState(false);
-  const films = props.films
+import React, { useState } from "react";
+import "../css/Gallery.css";
+import demoFilms from "../components/DemoFilms.js";
+import FilmCards from "./FilmCards";
+import Cinema from "../components/Cinema";
+import NewFilmForm from "../components/NewFilmForm";
 
+const Gallery = props => {
+  const [selectedFilm, setSelectedFilm] = useState(null);
+  const [browseMode, setBrowseMode] = useState(true);
+  const [showNewFilmForm, setShowNewFilmForm] = useState(false);
+  const films = props.films;
 
   const playFilm = id => {
     let film = films.find(f => f.id === id);
@@ -20,6 +19,9 @@ const Gallery = (props) => {
   };
 
   const endFilm = () => {
+    setBrowseMode(true);
+  };
+
 
     setBrowseMode(true)
   }
@@ -40,6 +42,7 @@ const Gallery = (props) => {
         </button> <br/>
         {showNewFilmForm ? <NewFilmForm onSuccess={props.addFilm} /> : null}
       </div>}
+
 
       {/* {browseMode && <div><button className='big-button'>NEW FILM</button></div>}<br/> */}
       {!showNewFilmForm && browseMode && <FilmCards show={browseMode} playFilm={id => playFilm(id)} films={films}/>}
