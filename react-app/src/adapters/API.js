@@ -1,9 +1,9 @@
 const API_ENDPOINT = "http://localhost:3000";
-const LOGIN_URL = `${API_ENDPOINT}/login`;
-const SIGNUP_URL = `${API_ENDPOINT}/users`;
-const VALIDATE_URL = `${API_ENDPOINT}/validate`;
-const FILMS_URL = `${API_ENDPOINT}/films`;
-const FRAMES_URL = `${API_ENDPOINT}/frames`;
+const LOGIN_URL = `${API_ENDPOINT}/login/`;
+const SIGNUP_URL = `${API_ENDPOINT}/users/`;
+const VALIDATE_URL = `${API_ENDPOINT}/validate/`;
+const FILMS_URL = `${API_ENDPOINT}/films/`;
+const FRAMES_URL = `${API_ENDPOINT}/frames/`;
 
 const jsonify = resp => {
   if (resp.ok) {
@@ -89,6 +89,15 @@ const fetchFilms = () =>
     }
   }).then(jsonify);
 
+const deleteFilm = filmId =>
+  fetch(FILMS_URL + filmId, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorisation: localStorage.token
+    }
+  });
+
 export default {
   login,
   signup,
@@ -96,6 +105,7 @@ export default {
   postFilm,
   postFrame,
   fetchFilms,
+  deleteFilm,
   hasToken: () => !!localStorage.token,
   clearToken: () => localStorage.removeItem("token")
 };
