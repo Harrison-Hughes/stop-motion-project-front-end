@@ -1,5 +1,6 @@
 import React, {} from 'react';
 import '../css/Gallery.css';
+import { Switch } from 'react-router-dom';
 
 class MiniFrame extends React.Component {
 

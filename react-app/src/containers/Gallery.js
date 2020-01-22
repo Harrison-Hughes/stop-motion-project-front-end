@@ -20,7 +20,6 @@ const Gallery = (props) => {
   };
 
   const endFilm = () => {
-
     setBrowseMode(true)
   }
 
@@ -33,7 +32,7 @@ const Gallery = (props) => {
   
   return(
     <div className='GalleryDiv'>
-    <br/>
+      <br/>
       {browseMode && <h1>YOUR FILMS</h1>}
       {browseMode && !showNewFilmForm && <button onClick={() => props.loadMovies()}>manual reload</button>}
       {browseMode && <div>
