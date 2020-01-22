@@ -9,13 +9,6 @@ const NewFilmForm = props => {
     description: ""
   });
 
-  const handleChange = event => {
-    setFormData({
-      ...formData,
-      [event.target.name]: event.target.value
-    });
-  };
-
   const handleTitleChange = e => {
     setFormData({
       ...formData,

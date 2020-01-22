@@ -87,7 +87,19 @@ const fetchFilms = () =>
       Accept: "application/json",
       Authorisation: localStorage.token
     }
-  }).then(jsonify);
+  })
+  // .then(resp => {console.log(resp); return resp})
+  .then(jsonify)
+  .then(films => {console.log('this is after jsonify', films); return films})
+
+  const deleteFrame = frameId =>
+  fetch(FRAMES_URL + frameId, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorisation: localStorage.token
+    }
+  });
 
 export default {
   login,
@@ -96,6 +108,7 @@ export default {
   postFilm,
   postFrame,
   fetchFilms,
+  deleteFrame,
   hasToken: () => !!localStorage.token,
   clearToken: () => localStorage.removeItem("token")
 };

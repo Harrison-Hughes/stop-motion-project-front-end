@@ -7,7 +7,7 @@ const FilmCards = props => {
 
   const renderFilmCards = () => {
     return props.films.map( (film) => {
-      return <FilmCard playFilm={id => props.playFilm(id)} key={film.id} film={film}/>
+      return <FilmCard enterAnimateMode={id => props.enterAnimateMode(id)} playFilm={id => props.playFilm(id)} key={film.id} film={film}/>
     })
   }
   

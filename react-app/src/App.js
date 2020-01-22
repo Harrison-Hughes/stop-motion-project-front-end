@@ -20,25 +20,67 @@ const App = () => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
   const [validatedUser, setValidatedUser] = useState(false);
+  const [unformattedFilms, setUnformattedFilms] = useState([]);
   const [films, setFilms] = useState([]);
-  
+  const [animateMode, setAnimateMode] = useState(false)
+  const [film, setFilm] = useState(null)
+
   const logout = () => {
     setUser(null);
     API.clearToken();
   };
+
+  const enterAnimateMode = filmID => {
+    setFilm(films.filter(film => film.id === filmID))
+    
+    setAnimateMode(true)
+  }
+
+  const leaveAnimateMode = () => {
+    setFilm(null)
+    setAnimateMode(false)
+  }
+
+  const saveFilm = (frames, filmTitle, filmDescription, id) => {
+    // let currFilmLength = film[0].frames.length, newFilmLength = frames.length;
+    // console.log(film[0].id)
+    // // console.log(films)
+    // console.log(unformattedFilms)
+    // console.log(films)
+
+    // let FILM = films.find(FILM => FILM.id === film[0].id)
+    // console.log(FILM)
+    // film.frames.forEach(frame => {
+    //     API.deleteFrame(frame.id)
+    //     console.log(frame)
+    
+  }
+
+
+
+
+
+
+
+
+
+
+
 
   const handleUser = user => {
     setUser(user);
   };
 
   const formatFilms = clips => {
-    let films = clips.map(clip => formatMovie(clip))
     // debugger
+    console.log('this is format films',clips)
+    setUnformattedFilms(clips)
+    let films = clips.map(clip => formatMovie(clip))
     setFilms(films)
-    // console.log(films)
   };
 
   const formatMovie = movie => {
+    // console.log(movie)
     let frames = movie.frames
     frames.sort(function(a,b) {return a.order -b.order})
     frames = frames.map(frame => frame.frame_string)
@@ -65,7 +107,8 @@ const App = () => {
   const fetchFilms = () => {
     if (API.hasToken()) {
       API.fetchFilms()
-        .then(formatFilms)
+      .then(films => {console.log('this is after fetch',films); return films})
+        .then(films => {formatFilms(films)})
         // .catch(errorPromise => {
         //   errorPromise.then(data => setError(data));
         // });
@@ -118,8 +161,8 @@ const App = () => {
                     logout
                   </Link>
                 </p>
-                <Gallery films={films} loadMovies={() => loadMovies()} addFilm={addFilm} />
-                {/* <Animator /> */}
+                {!animateMode && <Gallery films={films} enterAnimateMode={id => enterAnimateMode(id)} loadMovies={() => loadMovies()} addFilm={addFilm} />}
+                {animateMode &&<Animator handleSave={(frames, filmTitle, filmDescription, id) => saveFilm(frames, filmTitle, filmDescription, id)} leaveAnimateMode={saveStatus => leaveAnimateMode(saveStatus)} film={film} />}
               </div>
             ) : (
               <Redirect to="/signup" />

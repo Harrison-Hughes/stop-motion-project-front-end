@@ -75,7 +75,7 @@ class MiniFrame extends React.Component {
         <div className='details'>
           <h3 as='a'>{this.props.film.title}</h3>
           <p>{this.props.film.description}</p>
-          <button className="edit-button">edit</button>
+          <button onClick={() => this.props.enterAnimateMode(this.props.film.id)} className="edit-button">edit</button>
           <button className="delete-button">delete</button>
         </div>
       </div></div>

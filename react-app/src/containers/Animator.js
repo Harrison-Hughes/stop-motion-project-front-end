@@ -4,12 +4,15 @@ import demoFilms from '../components/DemoFilms.js'
 import FrameEditor from './FrameEditor';
 import FrameSelector from './FrameSelector';
 
-const Animator = () => {
+const Animator = props => {
   const[pixelDimensions] = useState([40, 25])
-  const[frames, setFrames] = useState(demoFilms[0].frames);
   const[frameNum, setframeNum] = useState(0);
   const[previewMode, setPreviewMode] = useState(false)
   const[previewRate, setPreviewRate] = useState('1')
+
+  const[frames, setFrames] = useState(props.film[0].frames);
+  const[filmTitle, setFilmTitle] = useState(props.film[0].title)
+  const[filmDescription, setFilmDescription] = useState(props.film[0].description)
 
   useInterval(
     () => {
@@ -17,6 +20,14 @@ const Animator = () => {
     },
     previewMode ? 1000 / previewRate : null
   );
+
+  const handleTitleChange = e => {
+    setFilmTitle(e.target.value);
+  }
+
+  const handleDescChange = e => {
+    setFilmDescription(e.target.value);
+  }
 
   const changeFrame = i => {
     if (i === "next")
@@ -60,8 +71,33 @@ const Animator = () => {
     setframeNum(frames.length);
   };
 
+  const handleSaveExit = () => {
+    handleSave();
+    handleExit()
+  }
+
+  const handleExit = () => {props.leaveAnimateMode()}
+
+  const handleSave = () =>  {props.handleSave(frames, filmTitle, filmDescription, props.film[0].id)}
+
   return (
     <div className="AnimatorDiv">
+    <button onClick={() => handleSave()}>save</button>
+    <button onClick={() => handleSaveExit()}>save and exit</button>
+    <button onClick={() => handleExit()}>exit</button><br/>
+        <input
+          onChange={handleTitleChange}
+          type="title"
+          name="title"
+          placeholder={props.film[0].title}
+          value={filmTitle}
+        /><br/>
+        <textarea
+          onChange={handleDescChange}
+          name="description"
+          placeholder={props.film[0].description}
+          value={filmDescription}
+        /><br/>
       <FrameEditor
         selectedFrame={frames[frameNum]}
         frameUp={

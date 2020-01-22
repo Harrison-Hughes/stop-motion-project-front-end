@@ -46,7 +46,7 @@ const Gallery = (props) => {
       </div>}
 
       {/* {browseMode && <div><button className='big-button'>NEW FILM</button></div>}<br/> */}
-      {!showNewFilmForm && browseMode && <FilmCards show={browseMode} playFilm={id => playFilm(id)} films={films}/>}
+      {!showNewFilmForm && browseMode && <FilmCards enterAnimateMode={id => props.enterAnimateMode(id)} show={browseMode} playFilm={id => playFilm(id)} films={films}/>}
       {!browseMode && <Cinema endFilm={() => endFilm()} film={selectedFilm}/>}
     </div>
   );
