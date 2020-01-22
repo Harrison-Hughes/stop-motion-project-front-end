@@ -5,12 +5,12 @@ import FilmCards from './FilmCards';
 import Cinema from '../components/Cinema';
 import NewFilmForm from '../components/NewFilmForm'
 
-const Gallery = ({ handleFilm }) => {
+const Gallery = (props) => {
   
   const[selectedFilm, setSelectedFilm] = useState(null)
   const[browseMode, setBrowseMode] = useState(true)
   const[showNewFilmForm, setShowNewFilmForm] = useState(false);
-  const films = demoFilms
+  const films = props.films
 
   const playFilm = id => {
     let film = films.find(f => f.id === id)
@@ -25,15 +25,16 @@ const Gallery = ({ handleFilm }) => {
   return(
     <div className='GalleryDiv'>
     <br/>
-      <h1>YOUR MOVIES</h1>
+      {browseMode && <h1>YOUR FILMS</h1>}
+      {browseMode && <button onClick={() => props.loadMovies()}>load</button>}
       {browseMode && <div>
         <button
           onClick={() => setShowNewFilmForm(!showNewFilmForm)}
           className="big-button"
         >
-          NEW FILM
+          {showNewFilmForm ? 'CANCEL NEW FILM' : 'NEW FILM'}
         </button>
-        {showNewFilmForm ? <NewFilmForm onSuccess={handleFilm} /> : null}
+        {showNewFilmForm ? <NewFilmForm onSuccess={props.addFilm} /> : null}
       </div>}
       {/* {browseMode && <div><button className='big-button'>NEW FILM</button></div>}<br/> */}
       {browseMode && <FilmCards show={browseMode} playFilm={id => playFilm(id)} films={films}/>}
