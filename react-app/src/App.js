@@ -33,9 +33,23 @@ const App = () => {
     setUser(user);
   };
 
-  const handleFilms = films => {
-    setFilms(films);
+  const formatFilms = clips => {
+    let films = clips.map(clip => formatMovie(clip))
+    // debugger
+    setFilms(films)
+    // console.log(films)
   };
+
+  const formatMovie = movie => {
+    let frames = movie.frames
+    frames.sort(function(a,b) {return a.order -b.order})
+    frames = frames.map(frame => frame.frame_string)
+    frames = frames.map(frame => JSON.parse(frame))
+    movie.frames = frames
+    return movie
+  }
+
+  useEffect(() => {})
 
   useEffect(() => {
     if (API.hasToken()) {
@@ -53,17 +67,20 @@ const App = () => {
   const fetchFilms = () => {
     if (API.hasToken()) {
       API.fetchFilms()
-        // .then(handleFilms)
-        .then(console.log)
-        .catch(errorPromise => {
-          errorPromise.then(data => setError(data));
-        });
+        .then(formatFilms)
+        // .catch(errorPromise => {
+        //   errorPromise.then(data => setError(data));
+        // });
     }
   };
 
-  const handleFilm = film => {
+  const addFilm = film => {
     setFilms({ ...films, film });
   };
+
+  const loadMovies = () => {
+    fetchFilms()
+  }
 
   return (
     <div className="App">
@@ -108,6 +125,7 @@ const App = () => {
                 ) : (
                   <Gallery handleFilm={handleFilm} />
                 )}
+
               </div>
             ) : (
               <Redirect to="/signup" />

@@ -23,7 +23,7 @@ const NewFilmForm = ({ onSuccess }) => {
     event.preventDefault();
     API.postFilm(formData)
       .then(film => {
-        onSuccess(film);
+        // onSuccess(film);
         API.postFrame(
           film.id,
           JSON.stringify(blankArrayGenerator(40, 25, "#FFF")),
@@ -31,7 +31,7 @@ const NewFilmForm = ({ onSuccess }) => {
         );
         return film;
       })
-      .then(console.log);
+      // .then(console.log);
   };
 
   return (

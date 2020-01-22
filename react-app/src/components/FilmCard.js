@@ -72,7 +72,7 @@ class MiniFrame extends React.Component {
           />
         </div>
         <div className='details'>
-          <h3 as='a'>{this.props.film.name}</h3>
+          <h3 as='a'>{this.props.film.title}</h3>
           <p>{this.props.film.description}</p>
           <button className="edit-button">edit</button>
           <button className="delete-button">delete</button>
