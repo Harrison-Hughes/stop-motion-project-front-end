@@ -1,19 +1,9 @@
-<<<<<<< HEAD
 import React, {useState, useEffect} from 'react';
 import '../css/Gallery.css';
 import demoFilms from '../components/DemoFilms.js'
 import FilmCards from './FilmCards';
 import Cinema from '../components/Cinema';
 import NewFilmForm from '../components/NewFilmForm'
-=======
-import React, { useState } from "react";
-import "../css/Gallery.css";
-import demoFilms from "../components/DemoFilms.js";
-import FilmCards from "./FilmCards";
-import Cinema from "../components/Cinema";
-import NewFilmForm from "../components/NewFilmForm";
-
->>>>>>> b9defc125ea64b4128ecf3b9f276a6e383a259da
 
 const Gallery = (props) => {
   
@@ -52,19 +42,8 @@ const Gallery = (props) => {
       </div>}
 
       {/* {browseMode && <div><button className='big-button'>NEW FILM</button></div>}<br/> */}
-<<<<<<< HEAD
       {!showNewFilmForm && browseMode && <FilmCards show={browseMode} playFilm={id => playFilm(id)} films={films}/>}
       {!browseMode && <Cinema endFilm={() => endFilm()} film={selectedFilm}/>}
-=======
-      {browseMode && (
-        <FilmCards
-          show={browseMode}
-          playFilm={id => playFilm(id)}
-          films={films}
-        />
-      )}
-      {!browseMode && <Cinema endFilm={() => endFilm()} film={selectedFilm} />}
->>>>>>> b9defc125ea64b4128ecf3b9f276a6e383a259da
     </div>
   );
 };
