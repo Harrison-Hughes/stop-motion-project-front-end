@@ -21,6 +21,8 @@ const App = () => {
   const [error, setError] = useState(null);
   const [validatedUser, setValidatedUser] = useState(false);
   const [films, setFilms] = useState([]);
+  const [showAnimator, setShowAnimator] = useState(false);
+  const [frames, setFrames] = useState([]);
 
   const logout = () => {
     setUser(null);
@@ -66,7 +68,7 @@ const App = () => {
   return (
     <div className="App">
       <img src={Logo} />
-      {error && <div style={{ color: "red" }}>{JSON.stringify(error)}</div>}
+
       <Router>
         <Switch>
           <Route exact path="/signup">
@@ -101,8 +103,11 @@ const App = () => {
                     logout
                   </Link>
                 </p>
-                <Gallery handleFilm={handleFilm} />
-                {/* <Animator /> */}
+                {showAnimator ? (
+                  <Animator />
+                ) : (
+                  <Gallery handleFilm={handleFilm} />
+                )}
               </div>
             ) : (
               <Redirect to="/signup" />
@@ -110,6 +115,7 @@ const App = () => {
           </Route>
         </Switch>
       </Router>
+      {error && <div style={{ color: "red" }}>{JSON.stringify(error)}</div>}
     </div>
   );
 };
