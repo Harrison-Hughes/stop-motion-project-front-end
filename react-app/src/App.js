@@ -21,6 +21,8 @@ const App = () => {
   const [error, setError] = useState(null);
   const [validatedUser, setValidatedUser] = useState(false);
   const [films, setFilms] = useState([]);
+  const [frames, setFrames] = useState([]);
+  const [showAnimator, setShowAnimator] = useState(false);
 
   const logout = () => {
     setUser(null);
@@ -32,31 +34,34 @@ const App = () => {
   };
 
   const formatFilms = clips => {
-    let films = clips.map(clip => formatMovie(clip))
+    console.log(clips);
+    let films = clips.map(clip => formatMovie(clip));
     // debugger
-    setFilms(films)
+    setFilms(films);
     // console.log(films)
   };
 
   const formatMovie = movie => {
-    let frames = movie.frames
-    frames.sort(function(a,b) {return a.order -b.order})
-    frames = frames.map(frame => frame.frame_string)
-    frames = frames.map(frame => JSON.parse(frame))
-    movie.frames = frames
-    return movie
-  }
+    let frames = movie.frames;
+    frames.sort(function(a, b) {
+      return a.order - b.order;
+    });
+    frames = frames.map(frame => frame.frame_string);
+    frames = frames.map(frame => JSON.parse(frame));
+    movie.frames = frames;
+    return movie;
+  };
 
-  useEffect(() => {})
+  useEffect(() => {});
 
   useEffect(() => {
     if (API.hasToken()) {
       API.validate()
         .then(handleUser)
-        .then(() => setValidatedUser(true))
-        .catch(errorPromise => {
-          errorPromise.then(data => setError(data));
-        });
+        .then(() => setValidatedUser(true));
+      // .catch(errorPromise => {
+      //   errorPromise.then(data => setError(data));
+      // })
     } else {
       setValidatedUser(false);
     }
@@ -64,11 +69,10 @@ const App = () => {
 
   const fetchFilms = () => {
     if (API.hasToken()) {
-      API.fetchFilms()
-        .then(formatFilms)
-        // .catch(errorPromise => {
-        //   errorPromise.then(data => setError(data));
-        // });
+      API.fetchFilms().then(formatFilms);
+      // .catch(errorPromise => {
+      //   errorPromise.then(data => setError(data));
+      // });
     }
   };
 
@@ -77,8 +81,14 @@ const App = () => {
   };
 
   const loadMovies = () => {
-    fetchFilms()
-  }
+    fetchFilms();
+  };
+
+  const handleDelete = filmId => {
+    if (API.hasToken()) {
+      API.deleteFilm(filmId).then(loadMovies);
+    }
+  };
 
   return (
     <div className="App">
@@ -118,8 +128,16 @@ const App = () => {
                     logout
                   </Link>
                 </p>
-                <Gallery films={films} loadMovies={() => loadMovies()} addFilm={addFilm} />
-                {/* <Animator /> */}
+                {showAnimator ? (
+                  <Animator />
+                ) : (
+                  <Gallery
+                    films={films}
+                    loadMovies={() => loadMovies()}
+                    addFilm={addFilm}
+                    handleDelete={handleDelete}
+                  />
+                )}
               </div>
             ) : (
               <Redirect to="/signup" />

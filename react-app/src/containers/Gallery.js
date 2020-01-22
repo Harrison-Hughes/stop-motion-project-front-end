@@ -1,5 +1,4 @@
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../css/Gallery.css";
 import demoFilms from "../components/DemoFilms.js";
 import FilmCards from "./FilmCards";
@@ -22,31 +21,36 @@ const Gallery = props => {
     setBrowseMode(true);
   };
 
+  useEffect(() => props.loadMovies(), [browseMode]);
 
-    setBrowseMode(true)
-  }
-
-  useEffect(() => props.loadMovies(),[browseMode])
-  
-  return(
-    <div className='GalleryDiv'>
-    <br/>
+  return (
+    <div className="GalleryDiv">
+      <br />
       {browseMode && <h1>YOUR FILMS</h1>}
       {browseMode && <button onClick={() => props.loadMovies()}>load</button>}
-      {browseMode && <div>
-        <button
-          onClick={() => setShowNewFilmForm(!showNewFilmForm)}
-          className="big-button"
-        >
-          {showNewFilmForm ? 'CANCEL NEW FILM' : 'NEW FILM'}
-        </button> <br/>
-        {showNewFilmForm ? <NewFilmForm onSuccess={props.addFilm} /> : null}
-      </div>}
-
+      {browseMode && (
+        <div>
+          <button
+            onClick={() => setShowNewFilmForm(!showNewFilmForm)}
+            className="big-button"
+          >
+            {showNewFilmForm ? "CANCEL NEW FILM" : "NEW FILM"}
+          </button>{" "}
+          <br />
+          {showNewFilmForm ? <NewFilmForm onSuccess={props.addFilm} /> : null}
+        </div>
+      )}
 
       {/* {browseMode && <div><button className='big-button'>NEW FILM</button></div>}<br/> */}
-      {!showNewFilmForm && browseMode && <FilmCards show={browseMode} playFilm={id => playFilm(id)} films={films}/>}
-      {!browseMode && <Cinema endFilm={() => endFilm()} film={selectedFilm}/>}
+      {!showNewFilmForm && browseMode && (
+        <FilmCards
+          show={browseMode}
+          playFilm={id => playFilm(id)}
+          films={films}
+          handleDelete={props.handleDelete}
+        />
+      )}
+      {!browseMode && <Cinema endFilm={() => endFilm()} film={selectedFilm} />}
     </div>
   );
 };
