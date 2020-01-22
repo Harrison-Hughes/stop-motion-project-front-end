@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import '../css/Gallery.css';
 import demoFilms from '../components/DemoFilms.js'
 import FilmCards from './FilmCards';
@@ -21,6 +21,8 @@ const Gallery = (props) => {
   const endFilm = () => {
     setBrowseMode(true)
   }
+
+  useEffect(() => props.loadMovies(),[browseMode])
   
   return(
     <div className='GalleryDiv'>
@@ -33,11 +35,11 @@ const Gallery = (props) => {
           className="big-button"
         >
           {showNewFilmForm ? 'CANCEL NEW FILM' : 'NEW FILM'}
-        </button>
+        </button> <br/>
         {showNewFilmForm ? <NewFilmForm onSuccess={props.addFilm} /> : null}
       </div>}
       {/* {browseMode && <div><button className='big-button'>NEW FILM</button></div>}<br/> */}
-      {browseMode && <FilmCards show={browseMode} playFilm={id => playFilm(id)} films={films}/>}
+      {!showNewFilmForm && browseMode && <FilmCards show={browseMode} playFilm={id => playFilm(id)} films={films}/>}
       {!browseMode && <Cinema endFilm={() => endFilm()} film={selectedFilm}/>}
     </div>
   )

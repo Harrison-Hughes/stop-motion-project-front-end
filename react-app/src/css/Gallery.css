@@ -37,6 +37,15 @@ button {
   margin: 4px 10px 4px 10px;
 }
 
+input[type="title"] {
+  font-size: 12px;
+  font-family: 'Press Start 2P', cursive;
+  cursor: pointer;
+  padding: 2px;
+  box-shadow: 2px 1px 2px gray;
+  margin: 4px 10px 4px 10px;
+}
+
 .big-button {
   font-size: 22px;
   font-family: 'Press Start 2P', cursive;
