@@ -3,7 +3,7 @@ import API from "../adapters/API";
 import '../css/Gallery.css';
 
 
-const NewFilmForm = () => {
+const NewFilmForm = props => {
   const [formData, setFormData] = useState({
     title: "",
     description: ""
@@ -43,11 +43,12 @@ const NewFilmForm = () => {
         );
         return film;
       })
+    props.filmSubmitted()
   };
 
   return (
-    <div >
-      <form onSubmit={handleSubmit}>
+    <div id='parentDiv' >
+      <form id='childForm' onSubmit={handleSubmit}>
         <input
           onChange={handleTitleChange}
           type="title"

@@ -21,6 +21,7 @@ const App = () => {
   const [error, setError] = useState(null);
   const [validatedUser, setValidatedUser] = useState(false);
   const [films, setFilms] = useState([]);
+
   const [frames, setFrames] = useState([]);
   const [showAnimator, setShowAnimator] = useState(false);
 
