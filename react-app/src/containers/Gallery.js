@@ -5,14 +5,11 @@ import FilmCards from "./FilmCards";
 import Cinema from "../components/Cinema";
 import NewFilmForm from "../components/NewFilmForm";
 
-
-const Gallery = (props) => {
-  
-  const[selectedFilm, setSelectedFilm] = useState(null)
-  const[browseMode, setBrowseMode] = useState(true)
-  const[showNewFilmForm, setShowNewFilmForm] = useState(false);
-  const films = props.films
-
+const Gallery = props => {
+  const [selectedFilm, setSelectedFilm] = useState(null);
+  const [browseMode, setBrowseMode] = useState(true);
+  const [showNewFilmForm, setShowNewFilmForm] = useState(false);
+  const films = props.films;
 
   const playFilm = id => {
     let film = films.find(f => f.id === id);
@@ -21,24 +18,25 @@ const Gallery = (props) => {
   };
 
   const endFilm = () => {
+    setBrowseMode(true);
+  };
 
-    setBrowseMode(true)
-  }
-  
-  return(
-    <div className='GalleryDiv'>
-    <br/>
+  return (
+    <div className="GalleryDiv">
+      <br />
       {browseMode && <h1>YOUR FILMS</h1>}
       {browseMode && <button onClick={() => props.loadMovies()}>load</button>}
-      {browseMode && <div>
-        <button
-          onClick={() => setShowNewFilmForm(!showNewFilmForm)}
-          className="big-button"
-        >
-          {showNewFilmForm ? 'CANCEL NEW FILM' : 'NEW FILM'}
-        </button>
-        {showNewFilmForm ? <NewFilmForm onSuccess={props.addFilm} /> : null}
-      </div>}
+      {browseMode && (
+        <div>
+          <button
+            onClick={() => setShowNewFilmForm(!showNewFilmForm)}
+            className="big-button"
+          >
+            {showNewFilmForm ? "CANCEL NEW FILM" : "NEW FILM"}
+          </button>
+          {showNewFilmForm ? <NewFilmForm onSuccess={props.addFilm} /> : null}
+        </div>
+      )}
 
       {/* {browseMode && <div><button className='big-button'>NEW FILM</button></div>}<br/> */}
       {browseMode && (
