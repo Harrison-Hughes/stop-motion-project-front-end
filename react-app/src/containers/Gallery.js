@@ -20,17 +20,21 @@ const Gallery = (props) => {
   };
 
   const endFilm = () => {
-
     setBrowseMode(true)
+  }
+
+  const filmSubmitted = () => {
+    setShowNewFilmForm(false)
+    props.loadMovies()
   }
 
   useEffect(() => props.loadMovies(),[browseMode])
   
   return(
     <div className='GalleryDiv'>
-    <br/>
+      <br/>
       {browseMode && <h1>YOUR FILMS</h1>}
-      {browseMode && <button onClick={() => props.loadMovies()}>load</button>}
+      {browseMode && !showNewFilmForm && <button onClick={() => props.loadMovies()}>manual reload</button>}
       {browseMode && <div>
         <button
           onClick={() => setShowNewFilmForm(!showNewFilmForm)}
@@ -38,7 +42,7 @@ const Gallery = (props) => {
         >
           {showNewFilmForm ? 'CANCEL NEW FILM' : 'NEW FILM'}
         </button> <br/>
-        {showNewFilmForm ? <NewFilmForm onSuccess={props.addFilm} /> : null}
+        {showNewFilmForm ? <NewFilmForm filmSubmitted={() => filmSubmitted()} onSuccess={props.addFilm} /> : null}
       </div>}
 
       {/* {browseMode && <div><button className='big-button'>NEW FILM</button></div>}<br/> */}

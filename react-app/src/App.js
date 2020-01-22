@@ -21,7 +21,7 @@ const App = () => {
   const [error, setError] = useState(null);
   const [validatedUser, setValidatedUser] = useState(false);
   const [films, setFilms] = useState([]);
-
+  
   const logout = () => {
     setUser(null);
     API.clearToken();
