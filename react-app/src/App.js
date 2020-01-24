@@ -21,7 +21,7 @@ const App = () => {
   const [error, setError] = useState(null);
   const [validatedUser, setValidatedUser] = useState(false);
   const [unformattedFilms, setUnformattedFilms] = useState([]);
-  const [films, setFilms] = useState([]);
+  const [formattedFilms, setFormattedFilms] = useState([]);
   const [animateMode, setAnimateMode] = useState(false)
   const [film, setFilm] = useState(null)
 
@@ -31,8 +31,7 @@ const App = () => {
   };
 
   const enterAnimateMode = filmID => {
-    setFilm(films.filter(film => film.id === filmID))
-    
+    setFilm(formattedFilms.filter(film => film.id === filmID))
     setAnimateMode(true)
   }
 
@@ -41,20 +40,25 @@ const App = () => {
     setAnimateMode(false)
   }
 
-  const saveFilm = (frames, filmTitle, filmDescription, id) => {
-    // let currFilmLength = film[0].frames.length, newFilmLength = frames.length;
-    // console.log(film[0].id)
-    // // console.log(films)
-    // console.log(unformattedFilms)
-    // console.log(films)
+  const saveFilm = (formattedFrames, filmTitle, filmDescription, id) => {
+    // console.log(unformattedFilms, formattedFilms)
+    console.table(filmTitle, filmDescription, id, formattedFrames)
+    // DELETE ALL FRAMES => POST ALL NEW FRAMES 
 
-    // let FILM = films.find(FILM => FILM.id === film[0].id)
-    // console.log(FILM)
-    // film.frames.forEach(frame => {
-    //     API.deleteFrame(frame.id)
-    //     console.log(frame)
-    
+    // delete frames
+    let filmBeingEdited = unformattedFilms.find(f => f.id === id)
+    console.log(filmBeingEdited)
+    filmBeingEdited.frames.forEach(frame => {
+        debugger
+        API.deleteFrame(frame.id)
+    })
+
+    formattedFrames.map((frame, index) => {
+      API.postFrame(id, JSON.stringify(frame), index)
+    })
+    // post new frames
   }
+
 
 
 
@@ -72,24 +76,20 @@ const App = () => {
   };
 
   const formatFilms = clips => {
-    // debugger
-    console.log('this is format films',clips)
     setUnformattedFilms(clips)
-    let films = clips.map(clip => formatMovie(clip))
-    setFilms(films)
+    let formattedFilms = clips.map(clip => formatMovie(clip))
+    setFormattedFilms(formattedFilms)
   };
 
   const formatMovie = movie => {
-    // console.log(movie)
     let frames = movie.frames
     frames.sort(function(a,b) {return a.order -b.order})
-    frames = frames.map(frame => frame.frame_string)
-    frames = frames.map(frame => JSON.parse(frame))
-    movie.frames = frames
-    return movie
+    let onlyFrames = frames.map(frame => frame.frame_string)
+    let frameAsMatrix = onlyFrames.map(frame => JSON.parse(frame))
+    let movieClone = JSON.parse(JSON.stringify(movie))
+    movieClone.frames = frameAsMatrix
+    return movieClone
   }
-
-  useEffect(() => {})
 
   useEffect(() => {
     if (API.hasToken()) {
@@ -107,16 +107,15 @@ const App = () => {
   const fetchFilms = () => {
     if (API.hasToken()) {
       API.fetchFilms()
-      .then(films => {console.log('this is after fetch',films); return films})
-        .then(films => {formatFilms(films)})
+        .then(data => formatFilms(data))
         // .catch(errorPromise => {
         //   errorPromise.then(data => setError(data));
         // });
     }
   };
 
-  const addFilm = film => {
-    setFilms({ ...films, film });
+  const addFilm = f => {
+    setFormattedFilms({ ...formattedFilms, f });
   };
 
   const loadMovies = () => {
@@ -161,7 +160,7 @@ const App = () => {
                     logout
                   </Link>
                 </p>
-                {!animateMode && <Gallery films={films} enterAnimateMode={id => enterAnimateMode(id)} loadMovies={() => loadMovies()} addFilm={addFilm} />}
+                {!animateMode && <Gallery films={formattedFilms} enterAnimateMode={id => enterAnimateMode(id)} loadMovies={() => loadMovies()} addFilm={addFilm} />}
                 {animateMode &&<Animator handleSave={(frames, filmTitle, filmDescription, id) => saveFilm(frames, filmTitle, filmDescription, id)} leaveAnimateMode={saveStatus => leaveAnimateMode(saveStatus)} film={film} />}
               </div>
             ) : (
@@ -172,6 +171,11 @@ const App = () => {
       </Router>
     </div>
   );
+  // return (
+  //   <div className="App">
+  //     <Gallery films={films} enterAnimateMode={id => enterAnimateMode(id)} loadMovies={() => loadMovies()} addFilm={addFilm}></Gallery>
+  //   </div>
+  // );
 };
 
 export default App;

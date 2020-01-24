@@ -1,6 +1,9 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
 const Palette = props => {
+
+  const[colourScheme, setColorScheme] = useState('basic')
+  const[customScheme, setCustomScheme] = useState([])
 
   const invertColor = (hex, bw) => {
     // https://stackoverflow.com/questions/35969656/how-can-i-generate-the-opposite-color-according-to-current-color/54569758
@@ -11,19 +14,54 @@ const Palette = props => {
     if (bw) {return (r * 0.299 + g * 0.587 + b * 0.114) > 150 ? 'black' : 'white'}
   }
 
-  const makeColorSwatches = () => (
-    ["#F00", "#F80", "#FF0", "#0F0", "#00F", "#508", "#90D", "#FFF", "#000"].map((str, idx) => {
+  const makeColorSwatches = () => {
+    if (colourSchemes !== 'custom') {
+    return colourSchemes[colourScheme].map((str, idx) => {
       const cb = () => { props.changeSelectedColor(str)};
       let style
       if (props.selectedColor===str) style = {backgroundColor: str, border: `2px solid ${invertColor(str, true)}`}
       else style = {backgroundColor: str}
       return <div key={idx} onClick={cb} className="color-swatch" style={style}/>
-    })
-  )
+    })}
+    else {
+      
+    }
+  }
+
+  const colourSchemes = {
+    basic: ["#F00", "#F80", "#FF0", "#0F0", "#00F", "#508", "#90D", "#FFF", "#000"],
+    fall: ["#7F4145", '#BD3D3A', '#3F69AA', '#D5AE41', '#766F57', '#E47A2E', '#BE9EC9', '#F1EA7F', '#006E6D'],
+    spring: ['#ECDB54','#E94B3C','#6F9FD8','#944743','#DBB1CD','#EC9787','#00A591','#6B5B95', '#EADEDB'],
+    neon: ['#FFACFC', '#F148FB','#7122FA','#560A86', '#00FECA','#13ca91', '#ff9472','#FDF200','#ce0000'],
+    custom: customScheme
+  }
 
   return(
-    <div id="colorSelector">
+    <div>
+      Colour palette:
+      <label>
+        <input type="radio" value="basic" checked={colourScheme==='basic'} onChange={e => setColorScheme(e.target.value)}/>
+        Basic
+      </label>
+      <label>
+        <input type="radio" value="fall" checked={colourScheme==='fall'} onChange={e => setColorScheme(e.target.value)}/>
+        Fall
+      </label>
+      <label>
+        <input type="radio" value="spring" checked={colourScheme==='spring'} onChange={e => setColorScheme(e.target.value)}/>
+        Spring
+      </label>
+      <label>
+        <input type="radio" value="neon" checked={colourScheme==='neon'} onChange={e => setColorScheme(e.target.value)}/>
+        Neon
+      </label>
+      {/* <label>
+        <input type="radio" value="custom" checked={colourScheme==='custom'} onChange={e => setColorScheme(e.target.value)}/>
+        Custom
+      </label> */}
+      <div id="colorSelector">
       {makeColorSwatches()}
+      </div>
     </div>
   )
 }

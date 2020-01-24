@@ -1,4 +1,5 @@
 const API_ENDPOINT = "http://localhost:3000";
+// https://bit-by-bit-by-bit.herokuapp.com/
 const LOGIN_URL = `${API_ENDPOINT}/login`;
 const SIGNUP_URL = `${API_ENDPOINT}/users`;
 const VALIDATE_URL = `${API_ENDPOINT}/validate`;
@@ -89,11 +90,11 @@ const fetchFilms = () =>
     }
   })
   // .then(resp => {console.log(resp); return resp})
-  .then(jsonify)
-  .then(films => {console.log('this is after jsonify', films); return films})
+  // .then(jsonify)
+  .then(resp => resp.json())
 
   const deleteFrame = frameId =>
-  fetch(FRAMES_URL + frameId, {
+  fetch(FRAMES_URL + '/' + frameId, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

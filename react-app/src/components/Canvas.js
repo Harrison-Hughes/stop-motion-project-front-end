@@ -23,8 +23,6 @@ class Canvas extends React.Component {
     const width = canvas.width; 
     const blockSize = width/frame[0].length;
 
-    // if (this.props.brushType.split(' ')[1] === 'square') this.setState({customBrushO: null})
-
     if (!!overlay[0]) {
       if (overlay[1]==='frame') {
         for(let y = 0; y < pixelsTall; y++){
@@ -100,14 +98,14 @@ class Canvas extends React.Component {
     return output
   }
 
-  squareBrushPaint = (xcrd, ycrd, squares) => {
-    let pixels = [], xStart = xcrd - squares + 1, yStart = ycrd - squares + 1;
-    for (let y=yStart; y<=yStart+(2*(squares-1)); y++) {
-      for (let x=xStart; x<=xStart+(2*(squares-1)); x++) {
-        if (x >= 0 && y >=0 && x < this.props.frame[0].length && y < this.props.frame.length ) pixels.push([x,y])
-    }}
-    this.props.editSquarePixels(pixels)
-  }
+  // squareBrushPaint = (xcrd, ycrd, squares) => {
+  //   let pixels = [], xStart = xcrd - squares + 1, yStart = ycrd - squares + 1;
+  //   for (let y=yStart; y<=yStart+(2*(squares-1)); y++) {
+  //     for (let x=xStart; x<=xStart+(2*(squares-1)); x++) {
+  //       if (x >= 0 && y >=0 && x < this.props.frame[0].length && y < this.props.frame.length ) pixels.push([x,y])
+  //   }}
+  //   this.props.editSquarePixels(pixels)
+  // }
 
   convertLocationToCoords = (xi, yi) => {
     const canvas = this.refs.canvas; const width = canvas.width; 

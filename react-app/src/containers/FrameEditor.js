@@ -17,19 +17,18 @@ const FrameEditor = props => {
   useEffect(() => props.updateFrame(frame),[frame])
   useEffect(() => setOverlay(chooseOverlay(overlayType)),[props.frameUp])
 
-  const editSquarePixels = arr => {
-    let ycrds = arr.map(coord => coord[1]); let xcrds = arr.map(coord => coord[0]);
-    setFrame(frame.map((row, rowIndex) => {
-      if (!ycrds.includes(rowIndex)) return row
-      else {return row.map((col, colIndex) => {
-        if (!xcrds.includes(colIndex)) return col
-        else return selectedColor
-      })};
-    }));
-  }
+  // const editSquarePixels = arr => {
+  //   let ycrds = arr.map(coord => coord[1]); let xcrds = arr.map(coord => coord[0]);
+  //   setFrame(frame.map((row, rowIndex) => {
+  //     if (!ycrds.includes(rowIndex)) return row
+  //     else {return row.map((col, colIndex) => {
+  //       if (!xcrds.includes(colIndex)) return col
+  //       else return selectedColor
+  //     })};
+  //   }));
+  // }
 
   const editRectanglePixels = (ycrds, xcrds) => {
-    // console.log(ycrds, xcrds)
     setFrame(frame.map((row, rowIndex) => {
       if (!ycrds.includes(rowIndex)) return row
       else {return row.map((col, colIndex) => {
@@ -82,7 +81,7 @@ const FrameEditor = props => {
         frame={frame} 
         selectedColor={selectedColor} 
         editPixel={(xcrd, ycd) => editPixel(xcrd, ycd)} 
-        editSquarePixels={arr => editSquarePixels(arr)} 
+        // editSquarePixels={arr => editSquarePixels(arr)} 
         editRectanglePixels={(ycrds, xcrds) => editRectanglePixels(ycrds, xcrds)} 
         updateFrame={updatedFrame => setFrame(updatedFrame)}
         showGrid={showGrid}/>

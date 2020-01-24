@@ -79,10 +79,6 @@ input[type="password"] {
   margin: 4px 10px 4px 10px;
 }
 
-#parentDiv {
-  /* position: relative; */
-}
-
 #childForm {
   position: absolute;
   top: 40%;

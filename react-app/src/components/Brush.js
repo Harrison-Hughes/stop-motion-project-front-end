@@ -11,7 +11,7 @@ const Brush = props => {
 
   const makeBrushTypes = () => {
     let brushes = squareBrushGenerator(1);
-    brushes.push([`custom`, `C`])
+    brushes.push([`custom`, `C`, ])
     return brushes.map((str, idx) => {
       const cb = () => {props.changeBrushType(str[0]);}
       return <div style={props.brushType===str[0] ? {border: '2px solid green'} : null } key={idx} onClick={cb} className="brush-type">{str[1]}</div>
